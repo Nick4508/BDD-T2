@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2023 a las 04:52:17
+-- Tiempo de generación: 26-05-2023 a las 06:42:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -45,14 +45,14 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `4mayores` ()   BEGIN
 (
-    SELECT nombre, reserva_disponible AS cantidad, 'hoteles' AS tipo
+    SELECT id,nombre, habitaciones_disponibles AS cantidad, 'hoteles' AS tipo
     FROM hoteles
-    ORDER BY reserva_disponible DESC
+    ORDER BY habitaciones_disponibles DESC
     LIMIT 4
 )
 UNION ALL
 (
-    SELECT nombre, disponibles AS cantidad, 'paquetes' AS tipo
+    SELECT id,nombre, disponibles AS cantidad, 'paquetes' AS tipo
     FROM paquetes
     ORDER BY disponibles DESC
     LIMIT 4
@@ -176,6 +176,13 @@ CREATE TABLE `paquetes` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `paquetes`
+--
+
+INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolina_vuelta`, `fecha_salida`, `fecha_entrada`, `noches_totales`, `precio_persona`, `disponibles`, `paquetes_totales`, `max_personas`, `id`) VALUES
+('Paquete Norte Grande', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-20', 11, 120000, 10, 13, 3, 2000);
+
 -- --------------------------------------------------------
 
 --
@@ -219,8 +226,15 @@ CREATE TABLE `resena_paquete` (
   `servicio` int(11) NOT NULL,
   `calidad_precio` int(11) NOT NULL,
   `id_paquete` int(11) NOT NULL,
-  `promedio` int(11) NOT NULL
+  `promedio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `resena_paquete`
+--
+
+INSERT INTO `resena_paquete` (`id`, `id_usuario`, `fecha`, `opinion`, `calidad`, `transporte`, `servicio`, `calidad_precio`, `id_paquete`, `promedio`) VALUES
+(30, 12, '2023-06-01', 'Compré este paquete y me parece que es muy bueno', 5, 4, 5, 5, 2000, 4.75);
 
 -- --------------------------------------------------------
 
@@ -241,7 +255,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `fecha_nacimiento`, `contrasena`) VALUES
-(12, 'juanito', 'juanito@gmail.com', '2001-08-29', 'aloaloaloaloalo'),
+(12, 'juanito', 'juanito@gmail.com', '2003-05-14', 'aloaloaloaloalo'),
 (13, 'aquiles bailo', 'aquiles.bailo@gmail.com', '2003-05-13', 'juanperezgomes');
 
 -- --------------------------------------------------------
@@ -330,7 +344,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `whishlist`
 --
 ALTER TABLE `whishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
@@ -346,15 +360,13 @@ ALTER TABLE `carrito`
 -- Filtros para la tabla `resena_hotel`
 --
 ALTER TABLE `resena_hotel`
-  ADD CONSTRAINT `resena-hotel` FOREIGN KEY (`id_hotel`) REFERENCES `hoteles` (`id`),
-  ADD CONSTRAINT `resena-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+  ADD CONSTRAINT `resena-hotel` FOREIGN KEY (`id_hotel`) REFERENCES `hoteles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `resena_paquete`
 --
 ALTER TABLE `resena_paquete`
-  ADD CONSTRAINT `resena-paquete` FOREIGN KEY (`id_paquete`) REFERENCES `paquetes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `usuario_resena_paquete` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `resena-paquete` FOREIGN KEY (`id_paquete`) REFERENCES `paquetes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `whishlist`
