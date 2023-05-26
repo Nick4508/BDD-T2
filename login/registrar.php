@@ -1,5 +1,5 @@
 <?php
-    include '../bd.php'
+    include '../bd.php';
 
     $mail = $_POST['mail'];
     $usuario = $_POST['usuario'];
