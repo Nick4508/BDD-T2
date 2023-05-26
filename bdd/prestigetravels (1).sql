@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2023 a las 05:12:19
+-- Tiempo de generación: 26-05-2023 a las 04:52:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -26,16 +26,16 @@ DELIMITER $$
 -- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `10_hoteles` ()   BEGIN
-SELECT h.nombre, AVG(r.promedio) AS calificacion_promedio
-FROM hoteles h
-JOIN resena_hotel r ON h.id = r.id_hotel
-GROUP BY h.id, h.nombre
-ORDER BY calificacion_promedio DESC
-LIMIT 10;
+    SELECT h.id, h.nombre, AVG(r.promedio) AS calificacion_promedio
+    FROM hoteles h
+    JOIN resena_hotel r ON h.id = r.id_hotel
+    GROUP BY h.id, h.nombre
+    ORDER BY calificacion_promedio DESC
+    LIMIT 10;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `10_paquetes` ()   BEGIN
-SELECT p.nombre, AVG(r.promedio) AS calificacion_promedio
+SELECT p.id, p.nombre, AVG(r.promedio) AS calificacion_promedio
 FROM paquetes p
 JOIN resena_paquete r ON p.id = r.id_paquete
 GROUP BY p.id, p.nombre
@@ -148,6 +148,14 @@ CREATE TABLE `hoteles` (
   `desayuno` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `hoteles`
+--
+
+INSERT INTO `hoteles` (`id`, `Nombre`, `cant_estrellas`, `precio_noche`, `ciudad`, `habitaciones_totales`, `habitaciones_disponibles`, `estacionamiento`, `piscina`, `lavanderia`, `pet_friendly`, `desayuno`) VALUES
+(1000, 'La joya del desierto', 4, 80000, 'concon', 400, 300, 1, 1, 1, 0, 1),
+(1001, 'La flor del océano', 5, 120000, 'Puerto Montt', 500, 90, 1, 1, 1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -184,8 +192,16 @@ CREATE TABLE `resena_hotel` (
   `decoracion` int(11) NOT NULL,
   `camas` int(11) NOT NULL,
   `id_hotel` int(11) NOT NULL,
-  `promedio` int(11) NOT NULL
+  `promedio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `resena_hotel`
+--
+
+INSERT INTO `resena_hotel` (`id`, `id_usuario`, `fecha`, `opinion`, `limpieza`, `servicio`, `decoracion`, `camas`, `id_hotel`, `promedio`) VALUES
+(30, 12, '2023-05-03', 'Muy buen hotel, cumplió totalmente con mis expectativas, totalmente recomendado', 5, 4, 5, 5, 1000, 4.75),
+(31, 13, '2023-05-01', 'Buen hotel, muy bonito, con vistas al mar, excelente servicio.', 5, 5, 5, 5, 1001, 5);
 
 -- --------------------------------------------------------
 
@@ -219,6 +235,14 @@ CREATE TABLE `usuarios` (
   `fecha_nacimiento` date NOT NULL,
   `contrasena` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `fecha_nacimiento`, `contrasena`) VALUES
+(12, 'juanito', 'juanito@gmail.com', '2001-08-29', 'aloaloaloaloalo'),
+(13, 'aquiles bailo', 'aquiles.bailo@gmail.com', '2003-05-13', 'juanperezgomes');
 
 -- --------------------------------------------------------
 
@@ -267,13 +291,17 @@ ALTER TABLE `paquetes`
 -- Indices de la tabla `resena_hotel`
 --
 ALTER TABLE `resena_hotel`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resena-hotel` (`id_hotel`),
+  ADD KEY `resena-usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `resena_paquete`
 --
 ALTER TABLE `resena_paquete`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_resena_paquete` (`id_usuario`),
+  ADD KEY `resena-paquete` (`id_paquete`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -289,6 +317,22 @@ ALTER TABLE `whishlist`
   ADD KEY `fk-usuario` (`id_usuario`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `whishlist`
+--
+ALTER TABLE `whishlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -299,10 +343,24 @@ ALTER TABLE `carrito`
   ADD CONSTRAINT `fk_usuario_carrito` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `resena_hotel`
+--
+ALTER TABLE `resena_hotel`
+  ADD CONSTRAINT `resena-hotel` FOREIGN KEY (`id_hotel`) REFERENCES `hoteles` (`id`),
+  ADD CONSTRAINT `resena-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `resena_paquete`
+--
+ALTER TABLE `resena_paquete`
+  ADD CONSTRAINT `resena-paquete` FOREIGN KEY (`id_paquete`) REFERENCES `paquetes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario_resena_paquete` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `whishlist`
 --
 ALTER TABLE `whishlist`
-  ADD CONSTRAINT `fk-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
