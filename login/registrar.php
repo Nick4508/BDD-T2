@@ -1,14 +1,14 @@
 <?php
     include '../bd.php';
 
-    $mail = $_POST['mail'];
-    $usuario = $_POST['usuario'];
-    $fecha = $_POST['fecha'];
+    $mail = $_POST['correo'];
+    $usuario = $_POST['nombre'];
+    $fecha = $_POST['fecha_nacimiento'];
     $contrasena = $_POST['contrasena'];
 
-    $consulta1 = "INSERT INTO usuarios(mail, usuario, fecha, contrasena) VALUES('mail','usuario','fecha','contrasena')";
+    $consulta1 = "INSERT INTO usuarios(nombre, correo, fecha_nacimiento, contrasena) VALUES('$usuario','$mail','$fecha','$contrasena')";
 
-    $verificacion_usr = mysqli_query($conexion, "SELECT * FROM usuarios WHERE usuario = '$usuario' ");
+    $verificacion_usr = mysqli_query($conexion, "SELECT * FROM usuarios WHERE nombre = '$usuario' ");
     if(mysqli_num_rows($verificacion_usr) > 0){
         echo '
             <script>
@@ -19,11 +19,11 @@
         exit();
     }
 
-    $verificacion_mail = mysqli_query($conexion, "SELECT * FROM usuarios WHERE mail = '$mail' ");
-    if(mysqli_num_rows($verificacion_usr) > 0){
+    $verificacion_mail = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo = '$mail' ");
+    if(mysqli_num_rows($verificacion_mail) > 0){
         echo '
             <script>
-                alert("Esta dirección de mail electrónico no se encuentra disponible");
+                alert("Esta dirección de correo electrónico no se encuentra disponible");
                 windows.location = "index.php";
             </script>
         ';
