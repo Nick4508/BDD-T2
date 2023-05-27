@@ -14,6 +14,8 @@
             }
         }
 
+    }else{
+        $usuarioAutenticado = false;
     }
 
     // echo 'si';
@@ -35,8 +37,8 @@
                     <button onclick="window.location.href='carrito.php'">Carrito de Compras</button>
                     <button onclick="window.location.href='usuario.php'"> <?php echo $nombreUsuario; ?></button>
                 <?php } else { ?>
-                    <button onclick="window.location.href='login.php'">Iniciar sesión</button>
-                    <button onclick="window.location.href='registro.php'">Registrarse</button>
+                    <button onclick="window.location.href='login/index.php'">Iniciar sesión</button>
+                    <button onclick="window.location.href='login/index.php'">Registrarse</button>
                 <?php } ?>
             </div>
         </nav>

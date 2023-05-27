@@ -22,5 +22,25 @@
         }
 
     } 
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        if(isset($_POST['boton1'])){
+            header("Location : login/logout.php");
+        }elseif(isset($_POST['boton2'])){
+
+        }
+    }
+    
     // echo 'si';
 ?>
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="post">
+        <!-- Botón 1 -->
+        <button type="submit" name="boton1">Cerrar Sesion</button>
+
+        <!-- Botón 2 -->
+        <button type="submit" name="boton2">Eliminar Cuenta</button>
+    </form>
+</body>
+</html>
