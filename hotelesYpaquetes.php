@@ -42,4 +42,28 @@
             }
         }
     }
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        if(isset($_POST['boton1'])){
+            
+        }elseif(isset($_POST['boton2'])){
+
+        }
+    }
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulando Botones con PHP</title>
+</head>
+<body>
+    <form method="post">
+        <!-- Botón 1 -->
+        <button type="submit" name="boton1">🛒</button>
+
+        <!-- Botón 2 -->
+        <button type="submit" name="boton2">Whishlist</button>
+    </form>
+</body>
+</html>
     

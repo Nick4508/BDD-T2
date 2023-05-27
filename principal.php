@@ -1,5 +1,7 @@
 <?php
     include 'bd.php';
+    include 'header.php';
+   
     $top4 = mysqli_query($conexion,"CALL 4mayores");
     if($top4){
         while($row = mysqli_fetch_assoc($top4)){

@@ -8,7 +8,9 @@
     $verificar_registro = mysqli_query($conexion, "SELECT * FROM usuarios WHERE nombre = '$usuario' and contrasena = '$contrasena'");
     if(mysqli_num_rows($verificar_registro) > 0){
         $fila = mysqli_fetch_array($verificar_registro);
-        $_SESSION['usuario'] = $fila['id'];
+        $_SESSION['nombre'] = $fila['nombre'];
+        $_SESSION['id'] = $fila['id'];
+        
         header ("location: ../principal.php");
     }else{
         echo '

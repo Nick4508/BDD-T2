@@ -13,7 +13,7 @@
         echo '
             <script>
                 alert("Este nombre de usuario no se encuentra disponible");
-                windows.location = "index.php";
+                window.location = "index.php";
             </script>
         ';
         exit();
@@ -24,7 +24,7 @@
         echo '
             <script>
                 alert("Esta dirección de correo electrónico no se encuentra disponible");
-                windows.location = "index.php";
+                window.location = "index.php";
             </script>
         ';
         exit();
@@ -36,14 +36,14 @@
         echo '
             <script>
                 alert("El usuario fue registrado");
-                windows.location = "index.php";
+                window.location = "index.php";
             </script>
         ';
     } else {
         echo '
             <script>
                 alert("¡ERROR!, No se ha podido registrar el usuario, intentelo de nuevo");
-                windows.location = "index.php";
+                window.location = "index.php";
             </script>
         ';
     }
