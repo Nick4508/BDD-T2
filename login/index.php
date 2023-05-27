@@ -1,4 +1,10 @@
+<?php
+    session_start();
 
+    if(isset($_SESSION['nombre'])){
+        header("location: ../principal.php");
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
