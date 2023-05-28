@@ -38,17 +38,11 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <form method="post">
-        <!-- Botón 1 -->
-        <button onclick="redireccionar()">cerrar</button>
+    <div class="button-group">
+    <button onclick="window.location.href='login/logout.php'">cerrar</button>
 
-        <script>
-            function redireccionar() {
-                window.location.href = 'login/logout.php';
-            }
-        </script>
-        <!-- Botón 2 -->
-        <button type="submit" name="boton2">Eliminar Cuenta</button>
-    </form>
+    </div>
+   
+
 </body>
 </html>
