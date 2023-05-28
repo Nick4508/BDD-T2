@@ -1,6 +1,11 @@
 <?php
     include 'bd.php';
     include 'header.php';
+    
+    if(!isset($_SESSION['usuario'])){
+        header("location: principal.php");
+
+    }
     $id = $_SESSION['id'];
     $data = mysqli_query($conexion,"SELECT * FROM usuarios WHERE id = '$id'");
     while($row = mysqli_fetch_assoc($data)){
@@ -22,13 +27,7 @@
         }
 
     } 
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        if(isset($_POST['boton1'])){
-            header("Location : login/logout.php");
-        }elseif(isset($_POST['boton2'])){
-
-        }
-    }
+    
     
     // echo 'si';
 ?>
@@ -41,7 +40,7 @@
 
         <script>
             function redireccionar() {
-                window.location.href = 'carpeta/pagina.php';
+                window.location.href = 'login/logout.php';
             }
         </script>
         <!-- Botón 2 -->
