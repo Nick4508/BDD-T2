@@ -22,7 +22,7 @@
         $sentenciaSQL->execute();
         echo '
             <script>
-                alert("Añadiste el hotel al carrito de compras");
+                alert("Añadiste el producto al carrito de compras");
                 window.location = "principal.php";
             </script>
         ';

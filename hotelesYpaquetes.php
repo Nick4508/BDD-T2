@@ -16,7 +16,14 @@
                     $piscina = $row['piscina'];
                     $lavanderia = $row['lavanderia'];
                     $friendly = $row['pet_friendly'];
-                    echo 'Id: '.$id.'<br>'.'Hotel: '.$nombre.'<br>'.'Estrellas: '.$estrellas.'<br>'.'Precio por noche: '.$precio_noche.'<br>'.'Ubicación: '.$ciudad.'<br>'.'Número de estacionamientos: '.$estacionamiento.'<br>'.'Piscinas: '.$piscina.'<br>'.'Lavanderia: '.$lavanderia.'<br>'.'Pet Friendly: '.$friendly.'<br>';
+                    echo 'Hotel: '.$nombre.'<br>'
+                    .'Estrellas: '.$estrellas.'<br>'.
+                    'Precio por noche: $'.$precio_noche.'<br>'.
+                    'Ubicación: '.$ciudad.'<br>'.
+                    'Estacionamiento: '.($estacionamiento ? '✔' : '❌').'<br>'.
+                    'Piscina: '.($piscina ? '✔' : '❌').'<br>'.
+                    'Lavanderia: '.($lavanderia ? '✔' : '❌').'<br>'
+                    .'Pet Friendly: '.($friendly ? '✔' : '❌').'<br>';
                 }
             }
         }elseif($id>=2000){
@@ -42,23 +49,24 @@
         }
     }
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        if(isset($_POST['boton1'])){
+        
+        if(isset($_POST['boton2'])){
             
-        }elseif(isset($_POST['boton2'])){
-
         }
     }
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Simulando Botones con PHP</title>
-</head>
+
 <body>
         <!-- Botón 1 -->
-        <td><a href="agregar_carrito.php?id_hotel=<?php echo $_GET['id']; ?>">Agregar al carrito </a></td>
-        <!-- Botón 2 -->
+        <td>
+        <form action="agregar_carrito.php" method="GET">
+        <input type="hidden" name="id_hotel" value="<?php echo $_GET['id']; ?>">
+        <button type="submit">🛒</button>
+        </form>
+    </td>
         <button type="submit" name="boton2">Whishlist</button>
     </form>
 </body>
