@@ -1,4 +1,3 @@
-<!-- header.php -->
 <?php
     include 'bd.php';
     session_start();

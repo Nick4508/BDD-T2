@@ -1,5 +1,6 @@
 <?php
     include 'bd.php';
+    include 'header.php';
 
     if (isset($_GET['id']) ) {
         $id = $_GET['id'];

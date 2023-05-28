@@ -1,18 +1,22 @@
 <?php
     include 'bd.php';
     include 'header.php';
-    
+
     if(!isset($_SESSION['usuario'])){
         header("location: principal.php");
 
     }
-    $id = $_SESSION['id'];
+    $id = $_SESSION['usuario'];
     $data = mysqli_query($conexion,"SELECT * FROM usuarios WHERE id = '$id'");
+    ?>
+    <title>USUARIO</title>
+    <p> Tus Datos </p>
+    <?php
     while($row = mysqli_fetch_assoc($data)){
         $nombre = $row['nombre'];
         $correo = $row['correo'];
         $fecha = $row['fecha_nacimiento'];
-        echo $nombre.'<br>'.$correo.'<br>'.$fecha.'<br>'; 
+        echo 'Nombre : '.$nombre.'<br>'.'Correo : '.$correo.'<br>'.'Fecha de nacimiento : '.$fecha.'<br>'; 
     }
     echo '-----------wishlist--------------<br>';
     $whislist = mysqli_query($conexion,"SELECT * FROM wishlist WHERE id_usuario = '$id'");
