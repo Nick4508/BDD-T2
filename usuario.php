@@ -25,6 +25,7 @@
     if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['boton1'])){
             header("Location : login/logout.php");
+            exit;
         }elseif(isset($_POST['boton2'])){
 
         }

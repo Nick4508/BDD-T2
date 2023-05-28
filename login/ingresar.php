@@ -9,7 +9,7 @@
     if(mysqli_num_rows($verificar_registro) > 0){
         $fila = mysqli_fetch_array($verificar_registro);
         $_SESSION['nombre'] = $fila['nombre'];
-        $_SESSION['id'] = $fila['id'];
+        $_SESSION['usuario'] = $fila['id'];
         
         header ("location: ../principal.php");
     }else{

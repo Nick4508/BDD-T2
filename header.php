@@ -2,22 +2,14 @@
 <?php
     include 'bd.php';
     session_start();
+    $usuarioAutenticado = false;
     
     if(isset($_SESSION['usuario'])){
         $nombreUsuario = $_SESSION['nombre'];
         $usuarioAutenticado = true;
-        $datos = mysqli_query($conexion,'SELECT * FROM usuarios WHERE id = "usuario"');
-        if($datos){
-            while($row = mysqli_fetch_assoc($datos)){
-                $nombre = $row['nombre'];
-                echo $nombre;
-            }
-        }
+      
 
-    }else{
-        $usuarioAutenticado = false;
     }
-
     // echo 'si';
 ?>
 <!DOCTYPE html>
@@ -37,6 +29,7 @@
                     <button onclick="window.location.href='carrito.php'">Carrito de Compras</button>
                     <button onclick="window.location.href='usuario.php'"> <?php echo $nombreUsuario; ?></button>
                 <?php } else { ?>
+                    <button onclick="window.location.href='principal.php'">Página Principal</button>
                     <button onclick="window.location.href='login/index.php'">Iniciar sesión</button>
                     <button onclick="window.location.href='login/index.php'">Registrarse</button>
                 <?php } ?>
