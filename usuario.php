@@ -25,7 +25,6 @@
     if($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['boton1'])){
             header("Location : login/logout.php");
-            exit;
         }elseif(isset($_POST['boton2'])){
 
         }
@@ -38,8 +37,13 @@
 <body>
     <form method="post">
         <!-- Botón 1 -->
-        <button type="submit" name="boton1">Cerrar Sesion</button>
+        <button onclick="redireccionar()">cerrar</button>
 
+        <script>
+            function redireccionar() {
+                window.location.href = 'carpeta/pagina.php';
+            }
+        </script>
         <!-- Botón 2 -->
         <button type="submit" name="boton2">Eliminar Cuenta</button>
     </form>
