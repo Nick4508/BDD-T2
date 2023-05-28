@@ -2,7 +2,7 @@
     include 'bd.php';
     include 'header.php';
 
-    if (isset($_GET['id']) ) {
+    if (isset($_GET['id'])) {
         $id = $_GET['id'];
         if($id >=1000 && $id <2000){
             $data = mysqli_query($conexion,"SELECT * FROM hoteles WHERE id= '$id'");
@@ -16,9 +16,7 @@
                     $piscina = $row['piscina'];
                     $lavanderia = $row['lavanderia'];
                     $friendly = $row['pet_friendly'];
-                    
-                    echo $nombre.'<br>'.$estrellas.'<br>'.$precio_noche.'<br>'.$ciudad.'<br>'.$estacionamiento.'<br>'.$piscina.'<br>'.$lavanderia.'<br>'.$friendly.'<br>';
-                    
+                    echo 'Id: '.$id.'<br>'.'Hotel: '.$nombre.'<br>'.'Estrellas: '.$estrellas.'<br>'.'Precio por noche: '.$precio_noche.'<br>'.'Ubicación: '.$ciudad.'<br>'.'Número de estacionamientos: '.$estacionamiento.'<br>'.'Piscinas: '.$piscina.'<br>'.'Lavanderia: '.$lavanderia.'<br>'.'Pet Friendly: '.$friendly.'<br>';
                 }
             }
         }elseif($id>=2000){
@@ -58,13 +56,10 @@
     <title>Simulando Botones con PHP</title>
 </head>
 <body>
-    <form method="post">
         <!-- Botón 1 -->
-        <button type="submit" name="boton1">🛒</button>
-
+        <td><a href="agregar_carrito.php?id_hotel=<?php echo $_GET['id']; ?>">Agregar al carrito </a></td>
         <!-- Botón 2 -->
         <button type="submit" name="boton2">Whishlist</button>
     </form>
 </body>
 </html>
-    

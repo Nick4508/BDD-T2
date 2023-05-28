@@ -31,8 +31,6 @@
         }
 
     } 
-    
-    
     // echo 'si';
 ?>
 <!DOCTYPE html>
@@ -40,9 +38,7 @@
 <body>
     <div class="button-group">
     <button onclick="window.location.href='login/logout.php'">cerrar</button>
-
+    <button>Eliminar</button>
     </div>
-   
-
 </body>
 </html>
