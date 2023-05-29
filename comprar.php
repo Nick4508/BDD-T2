@@ -12,7 +12,6 @@
             $eliminar->execute();
             $agregar = $conexion->prepare("INSERT INTO compras(id_usuario,id_producto,cantidad) VALUES('$id','$id_producto','$cantidad')");
             $agregar->execute();
-
         }
         echo '
         <script>
