@@ -5,16 +5,20 @@
         if(!isset($_SESSION['codigo'])){
             $num = rand(1,10);
             if($num <= 3){
+                echo '<br>***************<br>
+                Obtuviste un codigo de descuento quieres obtenerlo?'
                 ?>
-                <script>
-                    var respuesta = confirm("Obtuviste un codigo de descuento, deseas obtenerlo?");
-                    if(respuesta){
-                        <?php $_SESSION['codigo'] = true ;?>
-                    }else{
-                        <?php $_SESSION['codigo'] = false ;?>
-                    }
-                </script>
+                <form action="descuento.php" method="GET">
+                    <input type="hidden" name="descuento" value="<?php echo 1; ?>">
+                    <button type="submit" name="boton2">SI</button>
+                </form>
+                <form action="descuento.php" method="GET">
+                    <input type="hidden" name="descuento" value="<?php echo 0; ?>">
+                    <button type="submit" name="boton2">NO</button>
+                </form>
                 <?php
+                echo '<br>***************<br>';
+                
             }
         }
     }
