@@ -27,10 +27,21 @@
         if(!$bolean){
             $datos_hotel = mysqli_query($conexion,"SELECT nombre FROM hoteles WHERE id = '$id_producto'");
             $nombre_producto = mysqli_fetch_assoc($datos_hotel)['nombre'];
-            echo $nombre_producto.'<br>'.$promedio;
+            echo 'Nombre del hotel: '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$nombre_producto.'</a><br>'.$promedio.' Estrellas<br>';
+        }else{
+            $datos_paquete = mysqli_query($conexion,"SELECT nombre FROM paquetes WHERE id = '$id_producto'");
+            $nombre_producto = mysqli_fetch_assoc($datos_paquete)['nombre'];
+            echo 'Nombre del paquete: '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$nombre_producto.'</a><br>'.$promedio.' Estrellas<br>';
         }
+        ?>
+        <form action="delete_wishlist.php" method="get" style="display: inline;">
+            <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
+            <button type="submit">☠</button>
+        </form>
+<?php
+        echo'<br>⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩ <br>';
+    }
 
-    } 
     // echo 'si';
 ?>
 <!DOCTYPE html>

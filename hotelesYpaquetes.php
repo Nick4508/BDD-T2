@@ -67,6 +67,8 @@
         <button type="submit">🛒</button>
         </form>
     </td>
+        <form action="wishlist.php" method="GET">
+        <input type="hidden" name="id_hotel" value="<?php echo $_GET['id']; ?>">
         <button type="submit" name="boton2">Whishlist</button>
     </form>
 </body>
