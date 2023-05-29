@@ -51,8 +51,9 @@
 <html>
 <body>
     <div class="button-group">
-    <button onclick="window.location.href='login/logout.php'">cerrar</button>
-    <button>Eliminar</button>
+    <button onclick="window.location.href='editar_cuenta.php'">Editar perfil</button>
+    <button onclick="window.location.href='login/logout.php'">Cerrar Sesion</button>
+    <button onclick="window.location.href='confirmacion.php'">Eliminar cuenta</button>
     </div>
 </body>
 </html>

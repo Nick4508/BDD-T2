@@ -16,14 +16,15 @@
                     $piscina = $row['piscina'];
                     $lavanderia = $row['lavanderia'];
                     $friendly = $row['pet_friendly'];
-                    echo 'Hotel: '.$nombre.'<br>'
-                    .'Estrellas: '.$estrellas.'<br>'.
-                    'Precio por noche: $'.$precio_noche.'<br>'.
-                    'Ubicación: '.$ciudad.'<br>'.
-                    'Estacionamiento: '.($estacionamiento ? '✔' : '❌').'<br>'.
-                    'Piscina: '.($piscina ? '✔' : '❌').'<br>'.
-                    'Lavanderia: '.($lavanderia ? '✔' : '❌').'<br>'
-                    .'Pet Friendly: '.($friendly ? '✔' : '❌').'<br>';
+                    echo '<br>
+                    Hotel: '.$nombre.'<br>
+                    Estrellas: '.$estrellas.'<br>
+                    Precio por noche: $'.$precio_noche.'<br>
+                    Ubicación: '.$ciudad.'<br>
+                    Estacionamiento: '.($estacionamiento ? '✔' : '❌').'<br>
+                    Piscina: '.($piscina ? '✔' : '❌').'<br>
+                    Lavanderia: '.($lavanderia ? '✔' : '❌').'<br>
+                    Pet Friendly: '.($friendly ? '✔' : '❌').'<br>';
                 }
             }
         }elseif($id>=2000){
@@ -36,14 +37,22 @@
                     $vuelta = $row['aerolinea_vuelta'];
                     $precio = $row['precio_persona'];
                     $max_personas = $row['max_personas'];
+                    echo'<br> 
+                        Nombre del paquete :'.$nombre.'<br>
+                        Aerolinea de ida :'.$ida.'<br>
+                        Aerolinea de vuelta :'.$vuelta.'<br>
+                        Precio por persona : $'.$precio.'<br>
+                        Maximo de personas en el paquete :'.$max_personas.'<br>';
                     if($hotel){
+                        echo '<br>Hoteles asociados : <br>'; 
                         while($row = mysqli_fetch_assoc($hotel)){
                             $nombre2 = $row['nombre'];
                             $ciudad = $row['ciudad'];
-                            echo $nombre2.' '.$ciudad.'<br>';
+                            echo' 
+                            Nombre del hotel :'.$nombre2.'<br>
+                            Ciudad del hotel :'.$ciudad.'<br>';
                         }
                     }
-                    echo $nombre.'<br>'.$ida.'<br>'.$vuelta.'<br>'.$precio.'<br>'.$max_personas.'<br>';
                 }
             }
         }
@@ -60,7 +69,6 @@
 <html>
 
 <body>
-        <!-- Botón 1 -->
         <td>
         <form action="agregar_carrito.php" method="GET">
         <input type="hidden" name="id_hotel" value="<?php echo $_GET['id']; ?>">
