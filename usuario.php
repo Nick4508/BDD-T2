@@ -1,3 +1,5 @@
+<div class="px-4">
+
 <?php
     include 'bd.php';
     include 'header.php';
@@ -57,3 +59,4 @@
     </div>
 </body>
 </html>
+</div>

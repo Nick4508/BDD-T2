@@ -1,4 +1,7 @@
+<div class="px-4">
+
 <?php
+  include 'bd.php';
     echo 'Estas seguro de eliminar tu cuenta?<br>
     Por favor escribe: Acepto para continuar
     '
@@ -14,3 +17,4 @@
   <button onclick="window.location.href='usuario.php'">Volver</button>
 
 </form>
+</div>

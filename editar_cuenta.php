@@ -1,3 +1,5 @@
+<div class="px-4">
+
 <?php
     include 'bd.php';
     session_start();
@@ -37,4 +39,4 @@
 
     </form>
 
- 
+</div>
