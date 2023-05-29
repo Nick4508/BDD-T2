@@ -1,8 +1,13 @@
 <?php
     include "bd.php";
     session_start();
-    ?><h2>Carrito de <?php echo $_SESSION['nombre']; ?></h2><?php
+    ?>
+    <h2>Carrito de <?php echo $_SESSION['nombre']; ?></h2>
+    <?php
     $descuento = 0.1;
+    if (!$_SESSION['codigo']){
+        $descuento = 0;
+    }
     $id_usuario = $_SESSION['usuario'];
     $total = 0;
     $data = mysqli_query($conexion,"SELECT id_producto,cantidad FROM carrito WHERE id_usuario ='$id_usuario'");

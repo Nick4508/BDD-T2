@@ -1,7 +1,23 @@
 <?php
     include 'bd.php';
     include 'header.php';
-   
+    if(isset($_SESSION['usuario'])){
+        if(!isset($_SESSION['codigo'])){
+            $num = rand(1,10);
+            if($num <= 3){
+                ?>
+                <script>
+                    var respuesta = confirm("Obtuviste un codigo de descuento, deseas obtenerlo?");
+                    if(respuesta){
+                        <?php $_SESSION['codigo'] = true ;?>
+                    }else{
+                        <?php $_SESSION['codigo'] = false ;?>
+                    }
+                </script>
+                <?php
+            }
+        }
+    }
     $top4 = mysqli_query($conexion,"CALL 4mayores");
     if($top4){
         while($row = mysqli_fetch_assoc($top4)){
