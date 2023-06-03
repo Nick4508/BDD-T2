@@ -26,6 +26,7 @@
                     <button onclick="window.location.href='principal.php'">Página Principal</button>
                     <button onclick="window.location.href='carrito.php'">Carrito de Compras</button>
                     <button onclick="window.location.href='usuario.php'"> <?php echo $nombreUsuario; ?></button>
+                    <button onclick="window.location.href='wishlist.php'">Wishlist</button>
                     <button onclick="window.location.href='compras.php'">Lista de Compras</button>
                 <?php } else { ?>
                     <button onclick="window.location.href='principal.php'">Página Principal</button>

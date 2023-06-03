@@ -83,7 +83,7 @@
                 <button type="submit">🛒</button>
             </form>
         </td>
-        <form action="wishlist.php" method="GET">
+        <form action="update_wishlist.php" method="GET">
             <input type="hidden" name="id_hotel" value="<?php echo $_GET['id']; ?>">
             <button type="submit" name="boton2">Whishlist</button>
     </form>
@@ -102,6 +102,7 @@
                 $decoracion = $row['decoracion'];
                 $camas = $row['camas'];
                 $promedio = $row['promedio'];
+                $promedio = number_format($promedio,2);
                 $opinion = $row['opinion'];
             ?>
                 <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -130,6 +131,7 @@
                 $transporte = $row['transporte'];
                 $servicio = $row['servicio'];
                 $promedio =$row['promedio'];
+                $promedio = number_format($promedio,2);
                 $calidad_precio = $row['calidad_precio'];
                 $opinion = $row['opinion'];
             ?>

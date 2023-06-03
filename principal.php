@@ -52,6 +52,7 @@
             $id_hotel = $row['id'];
             $nombre = $row['nombre'];
             $promedio = $row['calificacion_promedio'];
+            $promedio = number_format($promedio,2);
             echo 'Nombre del hotel :'.'<a href="hotelesYpaquetes.php?id=' . $id_hotel . '">' . $nombre . '</a><br> ' .'Promedio de calificaciones :'. $promedio . '<br>';
             
         }
@@ -67,6 +68,7 @@
                 $id_paquete = $row['id'];
                 $nombre = $row['nombre'];
                 $promedio = $row['calificacion_promedio'];
+                $promedio = number_format($promedio,2);
                 echo 'Nombre del Paquete :'.'<a href="hotelesYpaquetes.php?id=' . $id_paquete . '">' . $nombre . '</a><br> ' .'Promedio de calificaciones :'. $promedio . '<br>';
                     
             }

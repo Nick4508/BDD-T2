@@ -1,45 +1,43 @@
+<div class="px-4">
+
 <?php
     include 'bd.php';
     session_start();
-    $id_hotel = $_GET['id_hotel'];
-    $id_usuario = $_SESSION['usuario'];
+    ?> <h3 > Wishlist de <?php echo $_SESSION['nombre'] ?></h3> <?php
+    $id = $_SESSION['usuario'];
+    $whislist = mysqli_query($conexion,"SELECT * FROM wishlist WHERE id_usuario = '$id'");
+        if(mysqli_num_rows($whislist)> 0){
 
-    $query = mysqli_query($conexion, "SELECT * FROM wishlist WHERE id_usuario = '$id_usuario' and id_paquete = '$id_hotel'");
-    if(mysqli_num_rows($query) > 0){
-        echo '
-            <script>
-                alert("Este producto ya pertenece a tu wishlist");
-                window.location = "principal.php";
-            </script>
-        ';
-        exit();
-    }else{
-        if($id_hotel >= 1000 && $id_hotel < 2000){ //hoteles
-            $query3 = mysqli_query($conexion, "SELECT avg(promedio) AS promedio_final FROM resena_hotel WHERE id_hotel = '$id_hotel'");
-            $cap = mysqli_fetch_assoc($query3)['promedio_final'];
-            $query2 = $conexion->prepare("INSERT INTO wishlist(id_usuario, id_paquete, puntuacion_promedio, paquete) VALUES('$id_usuario','$id_hotel','$cap','0')");
-            $query2->execute();
-            echo '
-                <script>
-                    alert("El hotel se agregó a tu wishlist");
-                    window.location = "principal.php";
-                </script>
-            ';
-        exit();
-        }elseif($id_hotel >= 2000){//paquetes
-            $query3 = mysqli_query($conexion, "SELECT avg(promedio) AS promedio_final FROM resena_paquete WHERE id_paquete = '$id_hotel'");
-            $cap = mysqli_fetch_assoc($query3)['promedio_final'];
-            $query2 = $conexion->prepare("INSERT INTO wishlist(id_usuario, id_paquete, puntuacion_promedio, paquete) VALUES('$id_usuario','$id_hotel','$cap','1')");
-            $query2->execute();
-            echo '
-                <script>
-                    alert("El paquete se agregó a tu wishlist");
-                    window.location = "principal.php";
-                </script>
-            ';
-        exit();
+            while($row = mysqli_fetch_assoc($whislist)){
+                $promedio = $row['puntuacion_promedio'];
+                $id_producto = $row['id_paquete'];
+                $bolean = $row['paquete'];
+                if(!$bolean){
+                    $datos_hotel = mysqli_query($conexion,"SELECT nombre FROM hoteles WHERE id = '$id_producto'");
+                    $nombre_producto = mysqli_fetch_assoc($datos_hotel)['nombre'];
+                    echo 'Nombre : '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$nombre_producto.'</a><br>Puntuacion :'.$promedio.'<br>';
+                }else{
+                    $datos_paquete = mysqli_query($conexion,"SELECT nombre FROM paquetes WHERE id = '$id_producto'");
+                    $nombre_producto = mysqli_fetch_assoc($datos_paquete)['nombre'];
+                    echo 'Nombre : '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$nombre_producto.'</a><br>Puntuacion :'.$promedio.'<br>';
+                }
+                ?>
+                <form action="delete_wishlist.php" method="get" style="display: inline;">
+                    <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
+                    <button type="submit">☠</button>
+                </form>
+        <?php
+                echo'<br>⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩⛩ <br>';
+            }
+        }else{
+            ?>
+            <img src="imagenes/noWishlist.jpg" >
+            <?php
         }
-    }
-
-    mysqli_close($conexion);
+        echo '<br>';
 ?>
+<div class="button-group">    
+        
+        <button onclick="window.location.href='principal.php'">Volver</button>
+        </div>
+</div>
