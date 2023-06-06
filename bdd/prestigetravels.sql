@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2023 a las 01:37:43
+-- Tiempo de generación: 06-06-2023 a las 23:13:35
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `prestigetravels2`
+-- Base de datos: `prestigetravels`
 --
 
 DELIMITER $$
@@ -43,24 +43,6 @@ ORDER BY calificacion_promedio DESC
 LIMIT 10;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `4mayores` ()   BEGIN
-(
-    SELECT id,nombre, habitaciones_disponibles AS cantidad, 'hoteles' AS tipo
-    FROM hoteles
-    ORDER BY habitaciones_disponibles DESC
-    LIMIT 4
-)
-UNION ALL
-(
-    SELECT id,nombre, disponibles AS cantidad, 'paquetes' AS tipo
-    FROM paquetes
-    ORDER BY disponibles DESC
-    LIMIT 4
-)
-ORDER BY cantidad DESC
-LIMIT 4;
-END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_promedio` ()   BEGIN
 	UPDATE resena_hotel SET promedio = (limpieza + servicio + decoracion + camas) / 4;
 	UPDATE resena_paquete SET promedio = (calidad + calidad_precio + transporte + servicio) / 4;
@@ -82,24 +64,11 @@ CREATE TABLE `carrito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Disparadores `carrito`
+-- Volcado de datos para la tabla `carrito`
 --
-DELIMITER $$
-CREATE TRIGGER `comprar` AFTER UPDATE ON `carrito` FOR EACH ROW BEGIN
-    UPDATE hoteles
-    SET habitaciones_disponibles = habitaciones_disponibles - OLD.cantidad
-    WHERE id = OLD.id_producto;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `comprar2` AFTER UPDATE ON `carrito` FOR EACH ROW BEGIN
-    UPDATE paquetes
-    SET disponibles = disponibles - OLD.cantidad
-    WHERE id = OLD.id_producto;
-END
-$$
-DELIMITER ;
+
+INSERT INTO `carrito` (`id_carrito`, `id_usuario`, `id_producto`, `cantidad`) VALUES
+(30, 25, 1000, 1);
 
 -- --------------------------------------------------------
 
@@ -113,6 +82,40 @@ CREATE TABLE `compras` (
   `id_producto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_producto`, `cantidad`) VALUES
+(5, 25, 1000, 2),
+(6, 25, 2000, 2),
+(7, 25, 1000, 2),
+(8, 25, 2000, 1),
+(11, 25, 2004, 1),
+(12, 25, 2004, 2),
+(13, 25, 2004, 2),
+(14, 25, 2004, 3);
+
+--
+-- Disparadores `compras`
+--
+DELIMITER $$
+CREATE TRIGGER `comprar` AFTER INSERT ON `compras` FOR EACH ROW BEGIN
+    UPDATE hoteles
+    SET habitaciones_disponibles = habitaciones_disponibles - NEW.cantidad
+    WHERE id = NEW.id_producto;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `comprar2` AFTER INSERT ON `compras` FOR EACH ROW BEGIN
+    UPDATE paquetes
+    SET disponibles = disponibles - NEW.cantidad
+    WHERE id = NEW.id_producto;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -133,7 +136,12 @@ CREATE TABLE `hospedaje_paquetes` (
 
 INSERT INTO `hospedaje_paquetes` (`id_hotel`, `id_paquete`, `ciudad`, `nombre`) VALUES
 (200, 2000, 'concon', 'Hotel Paraíso '),
-(201, 2000, 'Viña del Mar', 'Vista al Mar');
+(201, 2000, 'Viña del Mar', 'Vista al Mar'),
+(203, 2001, 'Puerto Varas', 'Bosques del sur'),
+(204, 2001, 'Puerto Montt', 'La casa de Aquiles'),
+(210, 2003, 'Iquique', 'Joyas Marinas'),
+(211, 2003, 'Arica', 'El marinero de agua dulce'),
+(212, 2004, 'Pucón', 'Adentro del Bosque');
 
 -- --------------------------------------------------------
 
@@ -161,8 +169,32 @@ CREATE TABLE `hoteles` (
 --
 
 INSERT INTO `hoteles` (`id`, `Nombre`, `cant_estrellas`, `precio_noche`, `ciudad`, `habitaciones_totales`, `habitaciones_disponibles`, `estacionamiento`, `piscina`, `lavanderia`, `pet_friendly`, `desayuno`) VALUES
-(1000, 'La joya del desierto', 4, 80000, 'concon', 400, 300, 1, 1, 1, 0, 1),
-(1001, 'La flor del océano', 5, 120000, 'Puerto Montt', 500, 90, 1, 1, 1, 1, 1);
+(1000, 'La joya del desierto', 4, 80000, 'concon', 100, 70, 1, 1, 1, 0, 1),
+(1001, 'La flor del océano', 5, 120000, 'Puerto Montt', 100, 56, 1, 1, 1, 1, 1),
+(1002, 'Paraiso del sur', 5, 120000, 'Puerto Varas', 90, 50, 1, 1, 1, 1, 1),
+(1003, 'Extreme Paradise', 4, 90000, 'Copiapo', 70, 65, 1, 1, 0, 1, 1),
+(1004, 'Canciones de alta Mar', 4, 90000, 'Arica', 50, 46, 1, 1, 1, 1, 0),
+(1005, 'Flores del bosque', 4, 90000, 'Temuco', 50, 40, 1, 1, 1, 1, 1),
+(1006, 'La posada de los muertos', 4, 130000, 'Concepcion', 100, 70, 1, 1, 1, 1, 1),
+(1007, 'Valparaiso el puerto principal', 5, 100000, 'Valparaíso', 95, 65, 1, 1, 1, 1, 1),
+(1008, 'Punta del mar', 5, 105000, 'San Antonio', 100, 80, 1, 1, 1, 1, 0),
+(1009, 'El volcán', 4, 80000, 'Osorno', 90, 50, 1, 0, 1, 0, 1),
+(1010, 'Valdivia\'s Resort', 5, 120000, 'Valdivia', 60, 30, 1, 1, 1, 1, 1),
+(1011, 'Los 3 Hermanos', 4, 70000, 'Calama', 60, 40, 1, 1, 0, 0, 1),
+(1012, 'Paraiso perdido', 4, 90000, 'Arica', 70, 50, 1, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `mayores`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `mayores` (
+`id` int(11)
+,`nombre` varchar(100)
+,`cantidad` int(11)
+,`tipo` varchar(8)
+);
 
 -- --------------------------------------------------------
 
@@ -175,7 +207,7 @@ CREATE TABLE `paquetes` (
   `aerolinea_ida` varchar(50) NOT NULL,
   `aerolinea_vuelta` varchar(50) NOT NULL,
   `fecha_salida` date NOT NULL,
-  `fecha_entrada` date NOT NULL,
+  `fecha_llegada` date NOT NULL,
   `noches_totales` int(11) NOT NULL,
   `precio_persona` int(11) NOT NULL,
   `disponibles` int(11) NOT NULL,
@@ -188,8 +220,11 @@ CREATE TABLE `paquetes` (
 -- Volcado de datos para la tabla `paquetes`
 --
 
-INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolinea_vuelta`, `fecha_salida`, `fecha_entrada`, `noches_totales`, `precio_persona`, `disponibles`, `paquetes_totales`, `max_personas`, `id`) VALUES
-('Paquete Norte Grande', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-20', 11, 120000, 10, 13, 3, 2000);
+INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolinea_vuelta`, `fecha_salida`, `fecha_llegada`, `noches_totales`, `precio_persona`, `disponibles`, `paquetes_totales`, `max_personas`, `id`) VALUES
+('Paquete Norte Grande', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-20', 11, 120000, 10, 13, 3, 2000),
+('Paquete La magia del sur', 'LAN Chile', 'American Airlines', '2023-06-07', '2023-06-14', 6, 110000, 20, 30, 2, 2001),
+('Paquete Vistas al mar', 'LAN Chile', 'Express Airlines', '2023-06-12', '2023-06-19', 7, 90000, 30, 40, 4, 2003),
+('Paquete Visitas Inesperadas', 'Express Airlines', 'LAN Chile', '2023-06-13', '2023-06-22', 9, 130000, 30, 35, 3, 2004);
 
 -- --------------------------------------------------------
 
@@ -215,8 +250,19 @@ CREATE TABLE `resena_hotel` (
 --
 
 INSERT INTO `resena_hotel` (`id`, `id_usuario`, `fecha`, `opinion`, `limpieza`, `servicio`, `decoracion`, `camas`, `id_hotel`, `promedio`) VALUES
+(12, 12, '2023-02-08', '', 5, 5, 5, 5, 1004, 5),
 (30, 12, '2023-05-03', 'Muy buen hotel, cumplió totalmente con mis expectativas, totalmente recomendado', 5, 4, 5, 5, 1000, 4.75),
-(31, 13, '2023-05-01', 'Buen hotel, muy bonito, con vistas al mar, excelente servicio.', 5, 5, 5, 5, 1001, 5);
+(31, 13, '2023-05-01', 'Buen hotel, muy bonito, con vistas al mar, excelente servicio.', 5, 5, 5, 5, 1001, 5),
+(100, 12, '2023-05-03', '', 4, 4, 5, 5, 1002, 4.5),
+(101, 12, '2023-05-03', '', 5, 4, 3, 5, 1002, 4.25),
+(102, 12, '2023-06-02', '', 5, 5, 3, 3, 1003, 4),
+(104, 13, '2023-05-03', '', 3, 3, 4, 4, 1004, 3.5),
+(105, 14, '2023-05-03', '', 5, 4, 3, 5, 1005, 4.25),
+(109, 14, '2023-06-02', '', 5, 5, 4, 4, 1006, 4.5),
+(110, 10, '2023-05-03', '', 5, 4, 5, 5, 1007, 4.75),
+(111, 10, '2023-06-02', '', 5, 5, 3, 4, 1008, 4.25),
+(115, 10, '2023-05-03', 'Buen hotel me gustó mucho', 5, 4, 5, 5, 1009, 4.75),
+(116, 40, '2023-06-01', '', 5, 4, 4, 4, 1010, 4.25);
 
 -- --------------------------------------------------------
 
@@ -242,6 +288,7 @@ CREATE TABLE `resena_paquete` (
 --
 
 INSERT INTO `resena_paquete` (`id`, `id_usuario`, `fecha`, `opinion`, `calidad`, `transporte`, `servicio`, `calidad_precio`, `id_paquete`, `promedio`) VALUES
+(0, 25, '2023-06-06', 'a', 4, 4, 4, 4, 2000, 4),
 (30, 12, '2023-06-01', 'Compré este paquete y me parece que es muy bueno', 5, 4, 5, 5, 2000, 4.75);
 
 -- --------------------------------------------------------
@@ -263,9 +310,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `fecha_nacimiento`, `contrasena`) VALUES
-(12, 'juanito', 'juanito@gmail.com', '2003-05-14', 'aloaloaloaloalo'),
+(12, 'Elvis', 'elvis@gmail.com', '2001-08-29', '123'),
 (13, 'aquiles bailo', 'aquiles.bailo@gmail.com', '2003-05-13', 'juanperezgomes'),
-(25, 'nicolas', 'nicolas.rodriguezbe@usm.cl', '2023-01-01', 'aaaaaaaaa');
+(14, 'Armando', 'armando@gmail.com', '2001-08-29', '123'),
+(15, 'Ando', 'Ando@gmail.com', '2003-06-04', '123'),
+(25, 'Nicolas', 'nicolas.rodriguezbe@usm.cl', '2004-02-21', '123');
 
 -- --------------------------------------------------------
 
@@ -286,7 +335,16 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id`, `id_usuario`, `id_paquete`, `puntuacion_promedio`, `paquete`) VALUES
-(10, 25, 1000, 4.75, 0);
+(18, 25, 1006, 4.5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `mayores`
+--
+DROP TABLE IF EXISTS `mayores`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `mayores`  AS SELECT `hoteles`.`id` AS `id`, `hoteles`.`nombre` AS `nombre`, `hoteles`.`cantidad` AS `cantidad`, `hoteles`.`tipo` AS `tipo` FROM (select `hoteles`.`id` AS `id`,`hoteles`.`Nombre` AS `nombre`,`hoteles`.`habitaciones_disponibles` AS `cantidad`,'hoteles' AS `tipo` from `hoteles` order by `hoteles`.`habitaciones_disponibles` desc limit 4) AS `hoteles`union all select `paquetes`.`id` AS `id`,`paquetes`.`nombre` AS `nombre`,`paquetes`.`cantidad` AS `cantidad`,`paquetes`.`tipo` AS `tipo` from (select `paquetes`.`id` AS `id`,`paquetes`.`nombre` AS `nombre`,`paquetes`.`disponibles` AS `cantidad`,'paquetes' AS `tipo` from `paquetes` order by `paquetes`.`disponibles` desc limit 4) `paquetes` order by `cantidad` desc limit 4  ;
 
 --
 -- Índices para tablas volcadas
@@ -298,6 +356,12 @@ INSERT INTO `wishlist` (`id`, `id_usuario`, `id_paquete`, `puntuacion_promedio`,
 ALTER TABLE `carrito`
   ADD PRIMARY KEY (`id_carrito`),
   ADD KEY `fk_usuario_carrito` (`id_usuario`);
+
+--
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id_compra`);
 
 --
 -- Indices de la tabla `hospedaje_paquetes`
@@ -351,16 +415,28 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
