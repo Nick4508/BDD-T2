@@ -7,7 +7,7 @@
         $email = $_POST['email'];
         $contrasena = $_POST['contrasena'];
         $fecha = $_POST['fecha_nacimiento'];
-        $query = $conexion->prepare("UPDATE usuarios SET nombre = '$nombre', 
+        $query = $conexion->prepare("UPDATE usuarios SET nombre = '$nombre',
         correo = '$email', fecha_nacimiento = '$fecha', contrasena = '$contrasena' WHERE id = '$id' ");
         $query->execute();
         echo '

@@ -11,25 +11,38 @@
 
     $query = mysqli_query($conexion, "SELECT * FROM compras WHERE id_usuario = '$id_usuario'");
 
+
     if($query){
         while($row = mysqli_fetch_assoc($query)){
             $id_compra = $row['id_compra'];
             $id_producto = $row['id_producto'];
             $cantidad = $row['cantidad'];            
-
             if($id_producto >=1000 && $id_producto <2000){
                 $query4 = mysqli_query($conexion, "SELECT Nombre FROM hoteles WHERE id = '$id_producto'");
                 $name = mysqli_fetch_assoc($query4)['Nombre'];
                 echo '<br>HOTELES: <br>';
-                $query2 = mysqli_query($conexion, "SELECT * FROM compras WHERE id_compra = '$id_producto'");
                 echo 'Numero de identificacion de la compra: '.$id_compra.'<br>'.'Nombre de identificacion del producto: '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$name.'</a><br>';
+                // echo 'Numero de identificacion de la compra: '.$id_compra.'<br>'.'Nombre de identificacion del producto: '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$name.'</a><br>';
+                
+                ?>
+                <form action="resena.php" method="get" style="display: inline;">
+
+                    <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
+                    <button type="submit">RESEÑAR HOTEL</button>
+                </form>
+
+            <?php
             }elseif($id_producto >= 2000){
                 $query4 = mysqli_query($conexion, "SELECT nombre FROM paquetes WHERE id = '$id_producto'");
                 $name = mysqli_fetch_assoc($query4)['nombre'];
                 echo '<br>PAQUETES: <br>';
-                $query2 = mysqli_query($conexion, "SELECT * FROM compras WHERE id_compra = '$id_producto'");
                 echo 'Numero de identificacion de la compra: '.$id_compra.'<br>'.'Producto: '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$name.'</a><br>';
-                // echo 'Nombre : '.'<a href="hotelesYpaquetes.php?id='.$id_producto.'">'.$nombre_producto.'</a><br>Puntuacion :'.$promedio.'<br>';
+                ?>
+                <form action="resena_paquete.php" method="get" style="display: inline;">
+                    <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
+                    <button type="submit">RESEÑAR PAQUETE</button>
+                </form>
+                <?php echo '<br>';
             }
         }
     }

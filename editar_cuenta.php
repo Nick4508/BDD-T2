@@ -33,9 +33,8 @@
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
         <?php echo '<br>'?>
         <input type="submit" value="Enviar">
-        
-        <button onclick="window.location.href='usuario.php'">Volver</button>
 
+        <button onclick="window.location.href='usuario.php'">Volver</button>
 
     </form>
 
