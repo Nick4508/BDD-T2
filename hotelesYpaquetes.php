@@ -21,6 +21,7 @@
                     $piscina = $row['piscina'];
                     $lavanderia = $row['lavanderia'];
                     $friendly = $row['pet_friendly'];
+                    $disponible = $row['habitaciones_disponibles'];
                     echo '
                     Hotel: '.$nombre.'<br>
                     Estrellas: '.$estrellas.'<br>
@@ -29,7 +30,10 @@
                     Estacionamiento: '.($estacionamiento ? '✔' : '❌').'<br>
                     Piscina: '.($piscina ? '✔' : '❌').'<br>
                     Lavanderia: '.($lavanderia ? '✔' : '❌').'<br>
-                    Pet Friendly: '.($friendly ? '✔' : '❌').'<br>';
+                    Pet Friendly: '.($friendly ? '✔' : '❌').'<br>
+                    Habitaciones disponibles : '.$disponible.'<br> 
+                    ';
+
                 }
             }
         }elseif($id>=2000){
@@ -37,7 +41,7 @@
             $paquetes = mysqli_query($conexion,"SELECT * FROM paquetes WHERE id = '$id'");
             if($paquetes){
                 ?>
-                <h3>Datos hotel</h3>
+                <h3>Datos del Paquete</h3>
                 <?php
                 while($row = mysqli_fetch_assoc($paquetes)){
                     $nombre = $row['nombre'];
@@ -45,32 +49,32 @@
                     $vuelta = $row['aerolinea_vuelta'];
                     $precio = $row['precio_persona'];
                     $max_personas = $row['max_personas'];
+                    $disponible = $row['disponibles'];
                     echo'   
                     Nombre del paquete :'.$nombre.'<br>
                     Aerolinea de ida :'.$ida.'<br>
                     Aerolinea de vuelta :'.$vuelta.'<br>
                     Precio por persona : $'.$precio.'<br>
-                    Maximo de personas en el paquete :'.$max_personas.'<br>';
+                    Maximo de personas en el paquete : '.$max_personas.'<br>
+                    Paquetes disponibles : '.$disponible.'<br>
+                    ';
                     if($hotel){
                         echo '<br>Hoteles asociados : <br>'; 
+                        $numero = 0;
                         while($row = mysqli_fetch_assoc($hotel)){
                             $nombre2 = $row['nombre'];
                             $ciudad = $row['ciudad'];
-                            echo' 
+                            echo ($numero+1).') 
                             Nombre del hotel :'.$nombre2.'<br>
                             Ciudad del hotel :'.$ciudad.'<br>';
+                            $numero = $numero+1;
                         }
                     }
                 }
             }
         }
     }
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        
-        if(isset($_POST['boton2'])){
-            
-        }
-    }
+    
     ?>
 
 <!DOCTYPE html>
@@ -94,8 +98,8 @@
     $id = $_GET['id'];
     if($id >=1000 && $id <2000){
         $query = mysqli_query($conexion,"SELECT * FROM resena_hotel WHERE id_hotel = '$id'");
-        ?><h4>Reseñas y calificaciones:</h4><?php
         if(mysqli_num_rows($query)>0){
+            ?><h4>Reseñas y calificaciones:</h4><?php
             while($row = mysqli_fetch_assoc($query)){
                 $limpieza = $row['limpieza'];
                 $servicio = $row['servicio'];
@@ -124,8 +128,8 @@
 
     }elseif($id >=2000){
         $query = mysqli_query($conexion,"SELECT * FROM resena_paquete WHERE id_paquete = '$id'");
-        ?><h4>Reseñas y calificaciones:</h4><?php
         if(mysqli_num_rows($query)>0){
+            ?><h4>Reseñas y calificaciones:</h4><?php
             while($row = mysqli_fetch_assoc($query)){
                 $calidad = $row['calidad'];
                 $transporte = $row['transporte'];

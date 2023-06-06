@@ -10,6 +10,7 @@
         $fila = mysqli_fetch_array($verificar_registro);
         $_SESSION['nombre'] = $fila['nombre'];
         $_SESSION['usuario'] = $fila['id'];
+        $_SESSION['warning'] = false;
         
         header ("location: ../principal.php");
     }else{
