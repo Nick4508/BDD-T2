@@ -18,14 +18,19 @@
             $producto = $row['id_producto'];
             $cantidad = $row['cantidad'];
             if($producto >=1000 && $producto <2000){
-                $hoteles = mysqli_query($conexion,"SELECT precio_noche,nombre FROM hoteles WHERE id = '$producto'");
+                $hoteles = mysqli_query($conexion,"SELECT precio_noche,nombre,habitaciones_disponibles FROM hoteles WHERE id = '$producto'");
                 while($filas = mysqli_fetch_assoc($hoteles)){
                     $precio_noche = $filas['precio_noche'];
                     $nombre = $filas['nombre'];
+                    $disponible = $filas['habitaciones_disponibles'];
                     $total = $total + ($precio_noche * $cantidad);
+                    if(($disponible-$cantidad )< 0){
+                        $_SESSION['warning'] = true;
+                    }else{$_SESSION['warning']= false;}
                     echo '
                     Nombre : '.$nombre.'<br>
                     Precio : $'.$precio_noche.'<br>
+                    Disponibles : '.$disponible.'<br> 
                     Cantidad : '. $cantidad.'<br>
                     ';
                 }
@@ -54,19 +59,24 @@
                 echo '<br>-----------------<br>';
                 //botones 
             }elseif($producto >= 2000){
-                $paquetes = mysqli_query($conexion,"SELECT nombre,precio_persona,max_personas FROM paquetes WHERE id = '$producto'");
+                $paquetes = mysqli_query($conexion,"SELECT nombre,precio_persona,max_personas,disponibles FROM paquetes WHERE id = '$producto'");
                 while($filas = mysqli_fetch_assoc($paquetes)){
                     $nombre = $filas['nombre'];
                     $precio_persona = $filas['precio_persona'];
                     $personas = $filas['max_personas'];
+                    $disponible = $filas['disponibles'];
                     $total_producto = $precio_persona*$personas;
                     $total = $total + ($total_producto)*$cantidad;
+                    if(($disponible-$cantidad )< 0){
+                        $_SESSION['warning'] = true;
+                    }else{$_SESSION['warning']= false;}
                     echo'
                     Nombre : '.$nombre.'<br>
                     Precio por persona : $'. $precio_persona.'<br>
                     Personas maximas por paquete : '.$personas.'<br>
                     Precio total : $'.$total_producto.'<br>
                     Cantidad : '. $cantidad.'<br>
+                    Disponibles : '.$disponible.'<br> 
                     ';
                 }?>
                 <form action="update_carrito.php" method="get" style="display: inline;">
@@ -110,8 +120,45 @@
 <html>
 <body>
     <div class="button-group">    
-        
-    <button onclick="window.location.href='comprar.php'">Comprar</button>
+    <?php 
+    if($_SESSION['warning']){
+
+        echo 'Tus siguientes productos no se pueden comprar,porque no hay la disponibilidad requerida :<br>';
+        $query = mysqli_query($conexion,"SELECT *  FROM paquetes JOIN carrito on paquetes.id = carrito.id_producto WHERE carrito.id_usuario = '$id_usuario'");
+        if($query){
+            while($row = mysqli_fetch_assoc($query)){
+                $disponible = $row['disponibles'];
+                $cantidad = $row['cantidad'];
+                $nombre = $row['nombre'];
+                if(($disponible-$cantidad)<0){
+                    echo'
+                    Nombre : '.$nombre.'<br>
+                    Disponibles : '.$disponible.'<br>
+                    En tu carrito : '.$cantidad.'<br>  
+                    ';
+                }
+            }
+        }
+        $query = mysqli_query($conexion,"SELECT * FROM hoteles JOIN carrito on hoteles.id = carrito.id_producto WHERE carrito.id_usuario = '$id_usuario' ");
+        if($query){
+            while($row = mysqli_fetch_assoc($query)){
+                $disponible = $row['habitaciones_disponibles'];
+                $cantidad = $row['cantidad'];
+                $nombre = $row['Nombre'];
+                if(($disponible-$cantidad)<0){
+                    echo'
+                    Nombre : '.$nombre.'<br>
+                    Disponibles : '.$disponible.'<br>
+                    En tu carrito : '.$cantidad.'<br>  
+                    ';
+                }
+            }
+        }
+    }else{
+        ?><button onclick="window.location.href='comprar.php'">Comprar</button><?php
+
+    }
+    ?>
     <button onclick="window.location.href='principal.php'">Volver</button>
     </div>
 </body>

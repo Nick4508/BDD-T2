@@ -24,19 +24,38 @@
             }
         }
     }
-    $top4 = mysqli_query($conexion,"CALL 4mayores");
+    $top4 = mysqli_query($conexion,"SELECT * FROM  mayores");
+    ?><h3>Nuestros productos con mayor disponibilidad </h3> <?php
     if($top4){
+        ?> 
+        <div class="row">
+        
+        <?php
         while($row = mysqli_fetch_assoc($top4)){
             $id = $row['id'];
             $nombre = $row['nombre'];
             $cantidad = $row['cantidad'];
             $tipo = $row['tipo'];
-            if($tipo == 'hoteles'){$tipo = 'hotel';}
-            echo 'Aun nos quedan '.$cantidad.' de este '.$tipo.'<br>';
-            echo 'Nombre del hotel :'.'<a href="hotelesYpaquetes.php?id=' . $id . '">' . $nombre.'</a><br> ';
+            if($tipo == 'hoteles'){$tipo = 'hotel';}else{$tipo = 'paquete';}
+            
+            ?>
+            <div class="col-sm">    
+            <div class="card">
+                <div class="card-body">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <h5 class="card-title "><?php echo $nombre  ?></h5>
+                <p class="card-text"><?php echo 'Cantidad : '.$cantidad.''?> </p>
+                <a href="hotelesYpaquetes.php?id=<?php echo $id; ?>" class="btn btn-primary">Ir a la página del <?php echo $tipo ?></a>
+
+                </div>
+            </div>
+            </div>
+        <?php   
         }
-        echo '<br>';
     }
+    ?>
+        </div>
+    <?php
     while (mysqli_next_result($conexion)) {
         if ($result = mysqli_store_result($conexion)) {
             mysqli_free_result($result);
@@ -47,15 +66,81 @@
     $actualizar = mysqli_query($conexion, "CALL actualizar_promedio");
     $hoteles_10 = mysqli_query($conexion, "CALL 10_hoteles");
     if($hoteles_10){
-
+        ?> <h3>Nuestros Hoteles mejor valorados</h3> <?php
+        $data = [];
+        $data2 = [];
+        $contador = 0; 
         while($row = mysqli_fetch_assoc($hoteles_10)){
             $id_hotel = $row['id'];
             $nombre = $row['nombre'];
             $promedio = $row['calificacion_promedio'];
             $promedio = number_format($promedio,2);
-            echo 'Nombre del hotel :'.'<a href="hotelesYpaquetes.php?id=' . $id_hotel . '">' . $nombre . '</a><br> ' .'Promedio de calificaciones :'. $promedio . '<br>';
-            
+            $filas = array('nombre' => $nombre,'promedio'=> $promedio,'id' => $id_hotel);
+            if($contador<5){$data[] = $filas;}else{$data2[] = $filas;}
+            $contador++;
         }
+        ?>
+
+        <div class="row">
+        <?php
+        foreach ($data as $contador => $filas) {
+            $nombre = $filas['nombre'];
+            $promedio = $filas['promedio'];
+            $id_hotel = $filas['id'];
+            ?>
+            <div class="col-sm">    
+            <div class="card">
+                <div class="card-body">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <h5 class="card-title"><?php echo $nombre  ?></h5>
+                <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
+                <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del hotel</a>
+
+                </div>
+            </div>
+            </div>
+        <?php   
+        }
+        ?>
+        </div>
+        <div class="row">
+        <?php
+        foreach ($data2 as $contador => $filas) {
+            $nombre = $filas['nombre'];
+            $promedio = $filas['promedio'];
+            $id_hotel = $filas['id'];
+            ?>
+            <div class="col-sm">    
+            <div class="card">
+                <div class="card-body">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <h5 class="card-title"><?php echo $nombre  ?></h5>
+                <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
+                <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del hotel</a>
+
+                </div>
+            </div>
+            </div>
+        <?php   
+        }
+        ?>
+        </div>
+        <?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         while (mysqli_next_result($conexion)) {
             if ($result = mysqli_store_result($conexion)) {
                 mysqli_free_result($result);
@@ -63,16 +148,69 @@
         }
     
         $paquetes_10 = mysqli_query($conexion, "CALL 10_paquetes");
+        ?> <h3>Nuestros Paquetes mejor valorados</h3> <?php
         if($paquetes_10){
-            while($row = mysqli_fetch_assoc($paquetes_10)){
-                $id_paquete = $row['id'];
-                $nombre = $row['nombre'];
-                $promedio = $row['calificacion_promedio'];
-                $promedio = number_format($promedio,2);
-                echo 'Nombre del Paquete :'.'<a href="hotelesYpaquetes.php?id=' . $id_paquete . '">' . $nombre . '</a><br> ' .'Promedio de calificaciones :'. $promedio . '<br>';
-                    
-            }
 
+        
+        $data = [];
+        $data2 = [];
+        $contador = 0; 
+        while($row = mysqli_fetch_assoc($paquetes_10)){
+            $id_hotel = $row['id'];
+            $nombre = $row['nombre'];
+            $promedio = $row['calificacion_promedio'];
+            $promedio = number_format($promedio,2);
+            $filas = array('nombre' => $nombre,'promedio'=> $promedio,'id' => $id_hotel);
+            if($contador<5){$data[] = $filas;}else{$data2[] = $filas;}
+            $contador++;
+        }
+        ?>
+        <div class="row">
+        <?php
+        foreach ($data as $contador => $filas) {
+            $nombre = $filas['nombre'];
+            $promedio = $filas['promedio'];
+            $id_hotel = $filas['id'];
+            ?>
+            <div class="col-sm">    
+            <div class="card">
+                <div class="card-body">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <h5 class="card-title"><?php echo $nombre  ?></h5>
+                <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
+                <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del Paquete</a>
+
+                </div>
+            </div>
+            </div>
+        <?php   
+        }
+        ?>
+        </div>
+        <div class="row">
+        <?php
+        foreach ($data2 as $contador => $filas) {
+            $nombre = $filas['nombre'];
+            $promedio = $filas['promedio'];
+            $id_hotel = $filas['id'];
+            ?>
+            <div class="col-sm">    
+            <div class="card">
+                <div class="card-body">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <h5 class="card-title"><?php echo $nombre  ?></h5>
+                <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
+                <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del Paquete</a>
+
+                </div>
+            </div>
+            </div>
+        <?php   
+        }
+        ?>
+        </div>
+        
+        <?php
         }
     }
 ?>
