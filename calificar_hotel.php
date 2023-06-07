@@ -8,7 +8,7 @@
     $txtCaliDec=(isset($_POST['caliDec']))?$_POST['caliDec']:"";
     $txtCaliCama=(isset($_POST['caliCama']))?$_POST['caliCama']:"";
 
-    // $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
+    $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
     $accion=(isset($_POST['action']))?$_POST['action']:"";
     
     if(isset($_GET['id_producto'])) {
@@ -67,7 +67,7 @@
 ?>
 <div style="margin: 13px;">
     <form class="form-edicion" method="POST" enctype="multipart/form-data">
-        <h4>Escriba su reseña: </h4>
+        <h4>Califica: </h4>
         <h3>Califica la limpieza (1 a 5)</h3>
         <input class="controls" type="number" name="caliLim" id="caliLim">
         <h3>Califica el servicio (1 a 5)</h3>
