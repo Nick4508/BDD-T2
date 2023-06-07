@@ -8,6 +8,7 @@
         header("location: principal.php");
 
     }
+    $query = mysqli_query($conexion,"CALL actualizar_promedio");
     $id = $_SESSION['usuario'];
     $data = mysqli_query($conexion,"SELECT * FROM usuarios WHERE id = '$id'");
     ?>
@@ -35,6 +36,10 @@
     <button onclick="window.location.href='login/logout.php'">Cerrar Sesion</button>
     <button onclick="window.location.href='confirmacion.php'">Eliminar cuenta</button>
     </div>
+
+<?php 
+    include 'mostrar_resenas.php'; 
+?>
 </body>
 </html>
 </div>
