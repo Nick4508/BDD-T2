@@ -3,10 +3,7 @@
     include 'bd.php';
     session_start();
     $fechaHoy = date("Y-m-d");
-    // $txtCaliCali=(isset($_POST['caliCali']))?$_POST['caliCali']:"";
-    // $txtCaliTrans=(isset($_POST['caliTrans']))?$_POST['caliTrans']:"";
-    // $txtCaliServ=(isset($_POST['caliServ']))?$_POST['caliServ']:"";
-    // $txtCaliPrecio=(isset($_POST['caliPrecio']))?$_POST['caliPrecio']:"";
+
 
     $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
     $accion=(isset($_POST['action']))?$_POST['action']:"";
@@ -48,7 +45,7 @@
                 mysqli_stmt_execute($query3);
                 echo'
                 <script>
-                    alert("Hola funciono");
+                    alert("Reseña guardada correctamente");
                     window.location = "compras.php";
                 </script>
                 ';
@@ -56,7 +53,7 @@
         case "volver":
             echo'
             <script>
-                window.location = "principal.php";
+                window.location = "compras.php";
             </script>
             ';
         break;

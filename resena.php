@@ -13,7 +13,7 @@
     
     if(isset($_GET['id_producto'])) {
         $id_producto = $_GET['id_producto'];}
-        echo 'aaaaa: '.$id_producto;
+
 
     $id_usuario = $_SESSION['usuario'];
 

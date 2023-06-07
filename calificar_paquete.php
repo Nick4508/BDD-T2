@@ -8,7 +8,6 @@
     $txtCaliServ=(isset($_POST['caliServ']))?$_POST['caliServ']:"";
     $txtCaliPrecio=(isset($_POST['caliPrecio']))?$_POST['caliPrecio']:"";
 
-    // $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
     $accion=(isset($_POST['action']))?$_POST['action']:"";
 
     if(isset($_GET['id_producto'])) {
@@ -84,7 +83,6 @@
         <h3>Que tan de acuerdo estás con el precio del paquete ?(1 a 5)</h3>
         <input class="controls" type="number" name="caliPrecio" id="caliPrecio">
         <input class="botons" type="submit" name="action" value="Enviar">
-        <input class="botons" type="submit" name="action" value="Volver">
         </br>
     </form>
     <button onclick="window.location.href='compras.php'">Volver</button>
