@@ -34,13 +34,13 @@
 
                 echo '
                 <script>
-                    alert("Reseña guardada correctamente");
+                    alert("Calificación guardada correctamente");
                     window.location = "compras.php";
                 </script>
                     ';
                     break;
             } else {
-                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, limpieza, servicio, decoracion, camas, id_hotel, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, limpieza, servicio, decoracion, camas, id_hotel, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 $promedio = 0;
                 mysqli_stmt_bind_param($query3, "isiiiiii", $id_usuario, $fechaHoy, $txtCaliLim, $txtCaliServ, $txtCaliDec, $txtCaliCama, $id_producto, $promedio);
                 mysqli_stmt_execute($query3);
@@ -53,7 +53,7 @@
                 
                 echo'
                 <script>
-                    alert("Hola funciono");
+                    alert("Calificación guardada correctamente");
                     window.location = "compras.php";
                 </script>
                 ';
