@@ -28,6 +28,7 @@
 
                 $query_prom = mysqli_query($conexion, "SELECT SUM(limpieza + servicio + decoracion + camas)/4 AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
                 $row = mysqli_fetch_assoc($query_prom);
+                $promedio = $row['promedio'];
 
                 $updateQuery = mysqli_query($conexion, "UPDATE resena_hotel SET promedio = $promedio WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
 
@@ -39,8 +40,9 @@
                     ';
                     break;
             } else {
-                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, opinion, id_hotel) VALUES (?, ?, ?, ?)");
-                mysqli_stmt_bind_param($query3, "issi ", $id_usuario, $fechaHoy, $txtRese, $id_producto);
+                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, limpieza, servicio, decoracion, camas, id_hotel, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $promedio = 0;
+                mysqli_stmt_bind_param($query3, "isiiiiii", $id_usuario, $fechaHoy, $txtCaliLim, $txtCaliServ, $txtCaliDec, $txtCaliCama, $id_producto, $promedio);
                 mysqli_stmt_execute($query3);
 
                 $query_prom = mysqli_query($conexion, "SELECT SUM(limpieza + servicio + decoracion + camas)/4 AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
