@@ -42,16 +42,10 @@
                     ';
                     break;
             } else {
-                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_paquete (id_usuario, fecha, opinion, calidad, transporte, servicio, calidad_precio, id_paquete, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_paquete (id_usuario, fecha, opinion, id_paquete) VALUES (?, ?, ?, ?)");
                 $promedio = 0;
-                mysqli_stmt_bind_param($query3, "issiiiiii", $id_usuario, $fechaHoy, $txtRese, $txtCaliCali, $txtCaliTrans, $txtCaliServ, $txtCaliPrecio, $id_producto, $promedio);
+                mysqli_stmt_bind_param($query3, "issi", $id_usuario, $fechaHoy, $txtRese, $id_producto);
                 mysqli_stmt_execute($query3);
-                $query_prom = mysqli_query($conexion, "SELECT SUM(calidad + transporte + servicio + calidad_precio)/4 AS promedio FROM resena_paquete WHERE id_paquete = $id_producto and id_usuario = $id_usuario");
-                $row = mysqli_fetch_assoc($query_prom);
-                $promedio = $row['promedio'];
-
-                $updateQuery = mysqli_query($conexion, "UPDATE resena_paquete SET promedio = $promedio WHERE id_paquete = $id_producto and id_usuario = $id_usuario");
-
                 echo'
                 <script>
                     alert("Hola funciono");
