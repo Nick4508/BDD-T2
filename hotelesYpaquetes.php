@@ -10,6 +10,8 @@
             $data = mysqli_query($conexion,"SELECT * FROM hoteles WHERE id= '$id'");
             if($data){
                 ?>
+                <div class="card" style="width: 18rem;">
+                <img src="imagenes/<?php echo $id?>.jpg" class="card-img-top" alt="...">
                 <h3>Datos hotel</h3>
                 <?php
                 while($row = mysqli_fetch_assoc($data)){
@@ -35,12 +37,17 @@
                     ';
 
                 }
+                ?>
+                </div>
+                <?php
             }
         }elseif($id>=2000){
             $hotel = mysqli_query($conexion,"SELECT nombre,ciudad FROM hospedaje_paquetes WHERE id_paquete = '$id'");
             $paquetes = mysqli_query($conexion,"SELECT * FROM paquetes WHERE id = '$id'");
             if($paquetes){
                 ?>
+                <div class="card" style="width: 18rem;">
+                <img src="imagenes/<?php echo $id?>.jpg" class="card-img-top" alt="...">
                 <h3>Datos del Paquete</h3>
                 <?php
                 while($row = mysqli_fetch_assoc($paquetes)){
@@ -71,6 +78,9 @@
                         }
                     }
                 }
+                ?>
+                </div>
+                <?php
             }
         }
     }
