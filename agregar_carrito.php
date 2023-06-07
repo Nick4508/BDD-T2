@@ -14,7 +14,7 @@
                 window.location = "principal.php";
             </script>
         ';
-        // falta sumarle 1 a la wea
+        
         exit();
     } else {
         $sentenciaSQL = $conexion->prepare("INSERT INTO carrito(id_usuario, id_producto, cantidad)

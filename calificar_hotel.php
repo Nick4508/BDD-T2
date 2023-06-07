@@ -3,12 +3,12 @@
     include 'bd.php';
     session_start();
     $fechaHoy = date("Y-m-d");
-    // $txtCaliLim=(isset($_POST['caliLim']))?$_POST['caliLim']:"";
-    // $txtCaliServ=(isset($_POST['caliServ']))?$_POST['caliServ']:"";
-    // $txtCaliDec=(isset($_POST['caliDec']))?$_POST['caliDec']:"";
-    // $txtCaliCama=(isset($_POST['caliCama']))?$_POST['caliCama']:"";
+    $txtCaliLim=(isset($_POST['caliLim']))?$_POST['caliLim']:"";
+    $txtCaliServ=(isset($_POST['caliServ']))?$_POST['caliServ']:"";
+    $txtCaliDec=(isset($_POST['caliDec']))?$_POST['caliDec']:"";
+    $txtCaliCama=(isset($_POST['caliCama']))?$_POST['caliCama']:"";
 
-    $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
+    // $txtRese=(isset($_POST['rese']))?$_POST['rese']:"";
     $accion=(isset($_POST['action']))?$_POST['action']:"";
     
     if(isset($_GET['id_producto'])) {
@@ -23,8 +23,8 @@
         case "Enviar":
             $query_res = mysqli_query($conexion, "SELECT * FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
             if (mysqli_num_rows($query_res) > 0) {
-                $query = $conexion->prepare("UPDATE resena_hotel SET opinion = ?, limpieza = ?, servicio = ?, decoracion = ?, camas = ?, promedio = 0 WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
-                $query->bind_param("siiii", $txtRese, $txtCaliLim, $txtCaliServ, $txtCaliDec, $txtCaliCama);
+                $query = $conexion->prepare("UPDATE resena_hotel SET  limpieza = ?, servicio = ?, decoracion = ?, camas = ?, promedio = 0 WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
+                $query->bind_param("iiii", $txtCaliLim, $txtCaliServ, $txtCaliDec, $txtCaliCama);
                 $query->execute();
 
                 // Primero, realiza la consulta para obtener el promedio
@@ -46,7 +46,7 @@
                 #$prom = mysqli_query($conexion, "SELECT AVG(limpieza + servicio + decoracion + camas) AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
                 #$query3 = mysqli_query($conexion,"INSERT INTO resena_hotel('id_usuario','fecha','opinion','limpieza','servicio','decoracion','camas','id_hotel','promedio') VALUES($id_usuario,$fechaHoy,$txtRese,$txtCaliLim,$txtCaliServ,$txtCaliDec,$txtCaliCama,$id_producto,'0')");
                 $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, opinion, id_hotel) VALUES (?, ?, ?, ?)");
-                mysqli_stmt_bind_param($query3, "issi", $id_usuario, $fechaHoy, $txtRese, $id_producto);
+                mysqli_stmt_bind_param($query3, "issi ", $id_usuario, $fechaHoy, $txtRese, $id_producto);
                 mysqli_stmt_execute($query3);
                 
                 // Primero, realiza la consulta para obtener el promedio
@@ -59,15 +59,15 @@
                 
                 echo'
                 <script>
-                    alert("Reseña guardada correctamente");
+                    alert("Hola funciono");
                     window.location = "compras.php";
                 </script>
                 ';
             }
-        case "Volver":
+        case "volver":
             echo'
             <script>
-                window.location = "../resena.php";
+                window.location = "compras.php";
             </script>
             ';
         break;
@@ -75,19 +75,19 @@
 ?>
 
     <form class="form-edicion" method="POST" enctype="multipart/form-data">
-        <h4>Escribir reseña</h4>
-        <!-- <h3>Califica la limpieza (1 a 5)</h3>
+        <h4>Escriba su reseña: </h4>
+        <h3>Califica la limpieza (1 a 5)</h3>
         <input class="controls" type="number" name="caliLim" id="caliLim">
         <h3>Califica el servicio (1 a 5)</h3>
         <input class="controls" type="number" name="caliServ" id="caliServ">
         <h3>Califica la decoración (1 a 5)</h3>
         <input class="controls" type="number" name="caliDec" id="caliDec">
         <h3>Califica las camas (1 a 5)</h3>
-        <input class="controls" type="number" name="caliCama" id="caliCama"> -->
-        <h3>Reseña</h3>
-        <input class="controls" type="text" name="rese" id="rese">
+        <input class="controls" type="number" name="caliCama" id="caliCama">
+        <!-- <h3>Reseña</h3>
+        <input class="controls" type="text" name="rese" id="rese"> -->
         <input class="botons" type="submit" name="action" value="Enviar">
-        <input class="botons" type="submit" name="action" value="Volver">
+        <button onclick="window.location.href='principal.php'">Volver</button>
         
         </br>
     </form>
