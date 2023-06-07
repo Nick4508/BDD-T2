@@ -13,7 +13,6 @@
     
     if(isset($_GET['id_producto'])) {
         $id_producto = $_GET['id_producto'];}
-        echo 'aaaaa: '.$id_producto;
 
     $id_usuario = $_SESSION['usuario'];
 
@@ -27,12 +26,9 @@
                 $query->bind_param("iiii", $txtCaliLim, $txtCaliServ, $txtCaliDec, $txtCaliCama);
                 $query->execute();
 
-                // Primero, realiza la consulta para obtener el promedio
                 $query_prom = mysqli_query($conexion, "SELECT SUM(limpieza + servicio + decoracion + camas)/4 AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
                 $row = mysqli_fetch_assoc($query_prom);
-                $promedio = $row['promedio'];
 
-                // Luego, realiza la actualización del valor promedio en la tabla
                 $updateQuery = mysqli_query($conexion, "UPDATE resena_hotel SET promedio = $promedio WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
 
                 echo '
@@ -43,18 +39,14 @@
                     ';
                     break;
             } else {
-                #$prom = mysqli_query($conexion, "SELECT AVG(limpieza + servicio + decoracion + camas) AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
-                #$query3 = mysqli_query($conexion,"INSERT INTO resena_hotel('id_usuario','fecha','opinion','limpieza','servicio','decoracion','camas','id_hotel','promedio') VALUES($id_usuario,$fechaHoy,$txtRese,$txtCaliLim,$txtCaliServ,$txtCaliDec,$txtCaliCama,$id_producto,'0')");
                 $query3 = mysqli_prepare($conexion, "INSERT INTO resena_hotel (id_usuario, fecha, opinion, id_hotel) VALUES (?, ?, ?, ?)");
                 mysqli_stmt_bind_param($query3, "issi ", $id_usuario, $fechaHoy, $txtRese, $id_producto);
                 mysqli_stmt_execute($query3);
-                
-                // Primero, realiza la consulta para obtener el promedio
+
                 $query_prom = mysqli_query($conexion, "SELECT SUM(limpieza + servicio + decoracion + camas)/4 AS promedio FROM resena_hotel WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
                 $row = mysqli_fetch_assoc($query_prom);
                 $promedio = $row['promedio'];
 
-                // Luego, realiza la actualización del valor promedio en la tabla
                 $updateQuery = mysqli_query($conexion, "UPDATE resena_hotel SET promedio = $promedio WHERE id_hotel = $id_producto and id_usuario = $id_usuario");
                 
                 echo'
@@ -73,7 +65,7 @@
         break;
     }
 ?>
-
+<div style="margin: 13px;">
     <form class="form-edicion" method="POST" enctype="multipart/form-data">
         <h4>Escriba su reseña: </h4>
         <h3>Califica la limpieza (1 a 5)</h3>
@@ -84,10 +76,8 @@
         <input class="controls" type="number" name="caliDec" id="caliDec">
         <h3>Califica las camas (1 a 5)</h3>
         <input class="controls" type="number" name="caliCama" id="caliCama">
-        <!-- <h3>Reseña</h3>
-        <input class="controls" type="text" name="rese" id="rese"> -->
         <input class="botons" type="submit" name="action" value="Enviar">
-        <button onclick="window.location.href='principal.php'">Volver</button>
-        
         </br>
     </form>
+    <button onclick="window.location.href='compras.php'">Volver</button>
+</div>

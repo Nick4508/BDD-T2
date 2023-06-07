@@ -73,21 +73,13 @@
         break;
     }
 ?>
-
+<div style="margin: 13px;">
     <form class="form-edicion" method="POST" enctype="multipart/form-data">
         <h4>Escribir reseña</h4>
-        <!-- <h3>Califica la limpieza (1 a 5)</h3>
-        <input class="controls" type="number" name="caliLim" id="caliLim">
-        <h3>Califica el servicio (1 a 5)</h3>
-        <input class="controls" type="number" name="caliServ" id="caliServ">
-        <h3>Califica la decoración (1 a 5)</h3>
-        <input class="controls" type="number" name="caliDec" id="caliDec">
-        <h3>Califica las camas (1 a 5)</h3>
-        <input class="controls" type="number" name="caliCama" id="caliCama"> -->
         <h3>Reseña</h3>
         <input class="controls" type="text" name="rese" id="rese">
         <input class="botons" type="submit" name="action" value="Enviar">
-        <input class="botons" type="submit" name="action" value="Volver">
-        
         </br>
     </form>
+    <button onclick="window.location.href='compras.php'">Volver</button>
+</div>
