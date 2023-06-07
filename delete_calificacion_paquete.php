@@ -6,7 +6,7 @@
     $id_producto = $_GET['id'];
 
     $query = $conexion->prepare("UPDATE resena_paquete SET calidad = 0,
-    transporte = 0, servicio = 0, calidad_precio = 0 WHERE id_usuario = $id_usuario and id_hotel = $id_producto");
+    transporte = 0, servicio = 0, calidad_precio = 0 WHERE id_usuario = $id_usuario and id_paquete = $id_producto");
     $query->execute();
     echo '
     <script>

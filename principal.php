@@ -40,8 +40,8 @@
             
             ?>
             <div class="col-sm">    
-            <div class="card">
-                <div class="card-body">
+            <div class="card border-dark">
+                <div class="card-body ">
                 <img src="imagenes/<?php echo $id?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <h5 class="card-title "><?php echo $nombre  ?></h5>
@@ -90,7 +90,7 @@
             $id_hotel = $filas['id'];
             ?>
             <div class="col-sm">    
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                 <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
 
@@ -113,7 +113,7 @@
             $id_hotel = $filas['id'];
             ?>
             <div class="col-sm">    
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                 <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -176,7 +176,7 @@
             $id_hotel = $filas['id'];
             ?>
             <div class="col-sm">    
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                 <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
 
@@ -199,7 +199,7 @@
             $id_hotel = $filas['id'];
             ?>
             <div class="col-sm">    
-            <div class="card">
+            <div class="card border-dark">
                 <div class="card-body">
                 <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->

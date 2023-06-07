@@ -11,6 +11,7 @@
             <?php
             while($row = mysqli_fetch_assoc($whislist)){
                 $promedio = $row['puntuacion_promedio'];
+                $promedio = number_format($promedio,2); 
                 $id_producto = $row['id_paquete'];
                 $bolean = $row['paquete'];
                 ?>

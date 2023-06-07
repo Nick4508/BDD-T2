@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2023 a las 23:13:35
+-- Tiempo de generación: 07-06-2023 a las 06:48:07
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -68,7 +68,7 @@ CREATE TABLE `carrito` (
 --
 
 INSERT INTO `carrito` (`id_carrito`, `id_usuario`, `id_producto`, `cantidad`) VALUES
-(30, 25, 1000, 1);
+(31, 12, 1008, 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,9 @@ INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_producto`, `cantidad`) VAL
 (11, 25, 2004, 1),
 (12, 25, 2004, 2),
 (13, 25, 2004, 2),
-(14, 25, 2004, 3);
+(14, 25, 2004, 3),
+(15, 25, 1008, 1),
+(16, 25, 2003, 1);
 
 --
 -- Disparadores `compras`
@@ -141,7 +143,21 @@ INSERT INTO `hospedaje_paquetes` (`id_hotel`, `id_paquete`, `ciudad`, `nombre`) 
 (204, 2001, 'Puerto Montt', 'La casa de Aquiles'),
 (210, 2003, 'Iquique', 'Joyas Marinas'),
 (211, 2003, 'Arica', 'El marinero de agua dulce'),
-(212, 2004, 'Pucón', 'Adentro del Bosque');
+(212, 2004, 'Pucón', 'Adentro del Bosque'),
+(213, 2002, 'Rancagua', 'El sueño de O\'higgins'),
+(214, 2002, 'Santiago', 'Sheraton'),
+(215, 2005, 'Copiapo', 'El paraiso de Copiapo'),
+(216, 2006, 'Coquimbo', 'Perlas del mar'),
+(217, 2006, 'Copiapo', 'El paraiso de Copiapo'),
+(218, 2007, 'Puerto Williams', 'El calor de Puerto Williams'),
+(219, 2008, 'Puerto Montt', 'Bosques del sur'),
+(220, 2008, 'Valparaiso', 'El puerto mi lugar'),
+(221, 2008, 'Iquique', 'La joya del desierto'),
+(222, 2009, '<Inserte nombre>', '<nombre hotel>'),
+(223, 2010, 'Iquique', 'Iquique\'s Resort'),
+(224, 2011, 'Isla de Pascua', 'El fragor de la Isla'),
+(225, 2012, 'Puerto Montt', 'Paraiso del Sur'),
+(226, 2012, 'Puerto Varas', 'La posada de los muertos');
 
 -- --------------------------------------------------------
 
@@ -177,7 +193,7 @@ INSERT INTO `hoteles` (`id`, `Nombre`, `cant_estrellas`, `precio_noche`, `ciudad
 (1005, 'Flores del bosque', 4, 90000, 'Temuco', 50, 40, 1, 1, 1, 1, 1),
 (1006, 'La posada de los muertos', 4, 130000, 'Concepcion', 100, 70, 1, 1, 1, 1, 1),
 (1007, 'Valparaiso el puerto principal', 5, 100000, 'Valparaíso', 95, 65, 1, 1, 1, 1, 1),
-(1008, 'Punta del mar', 5, 105000, 'San Antonio', 100, 80, 1, 1, 1, 1, 0),
+(1008, 'Punta del mar', 5, 105000, 'San Antonio', 100, 79, 1, 1, 1, 1, 0),
 (1009, 'El volcán', 4, 80000, 'Osorno', 90, 50, 1, 0, 1, 0, 1),
 (1010, 'Valdivia\'s Resort', 5, 120000, 'Valdivia', 60, 30, 1, 1, 1, 1, 1),
 (1011, 'Los 3 Hermanos', 4, 70000, 'Calama', 60, 40, 1, 1, 0, 0, 1),
@@ -223,8 +239,17 @@ CREATE TABLE `paquetes` (
 INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolinea_vuelta`, `fecha_salida`, `fecha_llegada`, `noches_totales`, `precio_persona`, `disponibles`, `paquetes_totales`, `max_personas`, `id`) VALUES
 ('Paquete Norte Grande', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-20', 11, 120000, 10, 13, 3, 2000),
 ('Paquete La magia del sur', 'LAN Chile', 'American Airlines', '2023-06-07', '2023-06-14', 6, 110000, 20, 30, 2, 2001),
-('Paquete Vistas al mar', 'LAN Chile', 'Express Airlines', '2023-06-12', '2023-06-19', 7, 90000, 30, 40, 4, 2003),
-('Paquete Visitas Inesperadas', 'Express Airlines', 'LAN Chile', '2023-06-13', '2023-06-22', 9, 130000, 30, 35, 3, 2004);
+('Paquete Centro de Chile', 'LAN Chile', 'American Airlines', '2023-06-10', '2023-06-15', 5, 90000, 50, 60, 2, 2002),
+('Paquete Vistas al mar', 'LAN Chile', 'Express Airlines', '2023-06-12', '2023-06-19', 7, 90000, 29, 40, 4, 2003),
+('Paquete Visitas Inesperadas', 'Express Airlines', 'LAN Chile', '2023-06-13', '2023-06-22', 9, 130000, 30, 35, 3, 2004),
+('Paquete Norte Chico', 'Express Airlines', 'LAN Chile', '2023-06-15', '2023-06-20', 4, 130000, 30, 40, 2, 2005),
+('Paquete Los lagos mi tierra', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-14', 5, 130000, 20, 30, 3, 2006),
+('Paquete Zona Austral', 'Express Airlines', 'American Airlines', '2023-06-15', '2023-06-20', 4, 110000, 30, 40, 3, 2007),
+('Paquete  1 2 3 Ya lo ves', 'LATAM Airlines', 'American Airlines', '2023-06-16', '2023-06-27', 8, 150000, 10, 13, 3, 2008),
+('Paquete Placeholders', 'Express Airlines', 'LAN Chile', '2023-06-21', '2023-06-26', 5, 120000, 30, 40, 2, 2009),
+('Paquete Ayuda no tengo mas ideas', 'Jet SMART', 'Jet SMART', '2023-06-16', '2023-06-23', 7, 120000, 30, 40, 2, 2010),
+('Paquete Isla de Pascua', 'Express Airlines', 'LAN Chile', '2023-06-15', '2023-06-20', 5, 110000, 30, 40, 2, 2011),
+('Paquete Los ultimos son los primeros', 'LAN Chile', 'Jet SMART', '2023-06-16', '2023-06-30', 14, 150000, 20, 30, 3, 2012);
 
 -- --------------------------------------------------------
 
@@ -250,19 +275,21 @@ CREATE TABLE `resena_hotel` (
 --
 
 INSERT INTO `resena_hotel` (`id`, `id_usuario`, `fecha`, `opinion`, `limpieza`, `servicio`, `decoracion`, `camas`, `id_hotel`, `promedio`) VALUES
-(12, 12, '2023-02-08', '', 5, 5, 5, 5, 1004, 5),
-(30, 12, '2023-05-03', 'Muy buen hotel, cumplió totalmente con mis expectativas, totalmente recomendado', 5, 4, 5, 5, 1000, 4.75),
+(1, 25, '2023-06-07', '', 0, 0, 0, 0, 1000, 0),
+(12, 12, '2023-02-08', '', 3, 5, 3, 3, 1004, 3.5),
+(30, 12, '2023-05-03', 'Si me gustó muchisimo', 5, 5, 5, 5, 1000, 5),
 (31, 13, '2023-05-01', 'Buen hotel, muy bonito, con vistas al mar, excelente servicio.', 5, 5, 5, 5, 1001, 5),
-(100, 12, '2023-05-03', '', 4, 4, 5, 5, 1002, 4.5),
-(101, 12, '2023-05-03', '', 5, 4, 3, 5, 1002, 4.25),
-(102, 12, '2023-06-02', '', 5, 5, 3, 3, 1003, 4),
+(100, 12, '2023-05-03', '', 5, 5, 5, 5, 1002, 5),
+(101, 12, '2023-05-03', '', 5, 5, 5, 5, 1006, 5),
+(102, 12, '2023-06-02', '', 5, 5, 5, 5, 1003, 5),
 (104, 13, '2023-05-03', '', 3, 3, 4, 4, 1004, 3.5),
 (105, 14, '2023-05-03', '', 5, 4, 3, 5, 1005, 4.25),
 (109, 14, '2023-06-02', '', 5, 5, 4, 4, 1006, 4.5),
 (110, 10, '2023-05-03', '', 5, 4, 5, 5, 1007, 4.75),
 (111, 10, '2023-06-02', '', 5, 5, 3, 4, 1008, 4.25),
 (115, 10, '2023-05-03', 'Buen hotel me gustó mucho', 5, 4, 5, 5, 1009, 4.75),
-(116, 40, '2023-06-01', '', 5, 4, 4, 4, 1010, 4.25);
+(116, 40, '2023-06-01', '', 5, 4, 4, 4, 1010, 4.25),
+(117, 25, '2023-06-07', '', 4, 4, 4, 4, 1008, 4);
 
 -- --------------------------------------------------------
 
@@ -288,8 +315,18 @@ CREATE TABLE `resena_paquete` (
 --
 
 INSERT INTO `resena_paquete` (`id`, `id_usuario`, `fecha`, `opinion`, `calidad`, `transporte`, `servicio`, `calidad_precio`, `id_paquete`, `promedio`) VALUES
-(0, 25, '2023-06-06', 'a', 4, 4, 4, 4, 2000, 4),
-(30, 12, '2023-06-01', 'Compré este paquete y me parece que es muy bueno', 5, 4, 5, 5, 2000, 4.75);
+(1, 25, '2023-06-06', '', 5, 5, 5, 5, 2000, 5),
+(2, 12, '2023-05-03', 'Si me gustó muchisimo', 5, 5, 3, 3, 2003, 4),
+(3, 15, '2023-05-05', '', 4, 4, 5, 5, 2002, 4.5),
+(4, 15, '2023-05-03', '', 5, 4, 5, 5, 2001, 4.75),
+(5, 11, '2023-05-10', '', 5, 5, 3, 4, 2005, 4.25),
+(6, 10, '2023-05-02', '', 4, 4, 5, 5, 2006, 4.5),
+(7, 9, '2023-05-14', '', 5, 5, 5, 5, 2008, 5),
+(8, 9, '2023-05-28', '', 4, 4, 5, 5, 2008, 4.5),
+(9, 8, '2023-05-19', '', 5, 4, 3, 5, 2012, 4.25),
+(10, 10, '2023-05-14', '', 4, 4, 5, 5, 2007, 4.5),
+(30, 12, '2023-06-01', '', 4, 4, 4, 4, 2000, 4),
+(31, 25, '2023-06-07', 'Si me gustó muchisimo', 4, 4, 4, 4, 2004, 4);
 
 -- --------------------------------------------------------
 
@@ -314,7 +351,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `fecha_nacimiento`, `contrasen
 (13, 'aquiles bailo', 'aquiles.bailo@gmail.com', '2003-05-13', 'juanperezgomes'),
 (14, 'Armando', 'armando@gmail.com', '2001-08-29', '123'),
 (15, 'Ando', 'Ando@gmail.com', '2003-06-04', '123'),
-(25, 'Nicolas', 'nicolas.rodriguezbe@usm.cl', '2004-02-21', '123');
+(25, 'nicolas', 'nicolas.rodriguezbe@ums.cl', '2001-08-29', '123');
 
 -- --------------------------------------------------------
 
@@ -335,7 +372,9 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id`, `id_usuario`, `id_paquete`, `puntuacion_promedio`, `paquete`) VALUES
-(18, 25, 1006, 4.5, 0);
+(19, 12, 1008, 4.25, 0),
+(20, 12, 2000, 3.25, 1),
+(24, 25, 1008, 4.125, 0);
 
 -- --------------------------------------------------------
 
@@ -418,13 +457,25 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `resena_hotel`
+--
+ALTER TABLE `resena_hotel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+
+--
+-- AUTO_INCREMENT de la tabla `resena_paquete`
+--
+ALTER TABLE `resena_paquete`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -436,7 +487,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas
