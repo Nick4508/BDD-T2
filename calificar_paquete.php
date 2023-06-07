@@ -54,7 +54,7 @@
 
                 echo'
                 <script>
-                    alert("Hola funciono");
+                    alert("Reseña guardada correctamente");
                     window.location = "compras.php";
                 </script>
                 ';
