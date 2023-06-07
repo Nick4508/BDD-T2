@@ -11,6 +11,7 @@
     $busqueda_aux = 'algo'.$busqueda;
     $busqueda_2 = '';
     
+    
 
     if(strpos($busqueda_aux,'Paquete') != false || strpos($busqueda_aux, 'paquete')!= false){
         $busqueda_2 = $busqueda.'%';
@@ -29,13 +30,22 @@
         $precio = $row['precio_persona'];
         $id = $row['id'];
         $tipo = 'Paquete';
-        // imagen
-        echo'
-        Tipo : '.$tipo.'<br>
-        Nombre :'.'<a href="hotelesYpaquetes.php?id=' . $id . '">' . $nombre.'</a><br> 
-        Precio por persona : $'.$precio.'<br>   
-        ------------------------------<br>
-        ';
+        ?>
+        <div class="card border-dark mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-4">
+            <img src="imagenes/<?php echo $id?>.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+            <p class="card-text">Tipo : <?php echo $tipo?></p>
+            <p class="card-text">Nombre : <?php echo '<a href="hotelesYpaquetes.php?id='.$id.'">'.$nombre.'</a>'?></p>
+            <p class="card-text"><small >Precio por persona : <?php echo $precio; ?></small></p>
+            </div>
+            </div>
+            </div>
+        </div>
+        <?php
     }
 
     $busqueda_3 = $busqueda.'%';
@@ -48,13 +58,23 @@
         $precio = $row['precio_noche'];
         $id = $row['id'];
         $tipo = 'Hotel';
-        // imagen
-        echo'
-        Tipo : '.$tipo.'<br>
-        Nombre :'.'<a href="hotelesYpaquetes.php?id=' . $id . '">' . $nombre.'</a><br> 
-        Precio por noche : $'.$precio.'<br>   
-        ------------------------------<br>
-        ';
+        
+        ?>
+        <div class="card border-dark mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-4">
+            <img src="imagenes/<?php echo $id?>.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+            <p class="card-text">Tipo : <?php echo $tipo?></p>
+            <p class="card-text">Nombre : <?php echo '<a href="hotelesYpaquetes.php?id='.$id.'">'.$nombre.'</a>'?></p>
+            <p class="card-text"><small >Precio por persona : <?php echo $precio; ?></small></p>
+            </div>
+            </div>
+            </div>
+        </div>
+        <?php
     }
 ?>
 </div>

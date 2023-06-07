@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2023 a las 06:48:07
+-- Tiempo de generación: 08-06-2023 a las 01:10:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -97,7 +97,8 @@ INSERT INTO `compras` (`id_compra`, `id_usuario`, `id_producto`, `cantidad`) VAL
 (13, 25, 2004, 2),
 (14, 25, 2004, 3),
 (15, 25, 1008, 1),
-(16, 25, 2003, 1);
+(16, 25, 2003, 1),
+(17, 28, 2001, 1);
 
 --
 -- Disparadores `compras`
@@ -238,7 +239,7 @@ CREATE TABLE `paquetes` (
 
 INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolinea_vuelta`, `fecha_salida`, `fecha_llegada`, `noches_totales`, `precio_persona`, `disponibles`, `paquetes_totales`, `max_personas`, `id`) VALUES
 ('Paquete Norte Grande', 'LAN Chile', 'Express Airlines', '2023-06-09', '2023-06-20', 11, 120000, 10, 13, 3, 2000),
-('Paquete La magia del sur', 'LAN Chile', 'American Airlines', '2023-06-07', '2023-06-14', 6, 110000, 20, 30, 2, 2001),
+('Paquete La magia del sur', 'LAN Chile', 'American Airlines', '2023-06-07', '2023-06-14', 6, 110000, 19, 30, 2, 2001),
 ('Paquete Centro de Chile', 'LAN Chile', 'American Airlines', '2023-06-10', '2023-06-15', 5, 90000, 50, 60, 2, 2002),
 ('Paquete Vistas al mar', 'LAN Chile', 'Express Airlines', '2023-06-12', '2023-06-19', 7, 90000, 29, 40, 4, 2003),
 ('Paquete Visitas Inesperadas', 'Express Airlines', 'LAN Chile', '2023-06-13', '2023-06-22', 9, 130000, 30, 35, 3, 2004),
@@ -247,7 +248,7 @@ INSERT INTO `paquetes` (`nombre`, `aerolinea_ida`, `aerolinea_vuelta`, `fecha_sa
 ('Paquete Zona Austral', 'Express Airlines', 'American Airlines', '2023-06-15', '2023-06-20', 4, 110000, 30, 40, 3, 2007),
 ('Paquete  1 2 3 Ya lo ves', 'LATAM Airlines', 'American Airlines', '2023-06-16', '2023-06-27', 8, 150000, 10, 13, 3, 2008),
 ('Paquete Placeholders', 'Express Airlines', 'LAN Chile', '2023-06-21', '2023-06-26', 5, 120000, 30, 40, 2, 2009),
-('Paquete Ayuda no tengo mas ideas', 'Jet SMART', 'Jet SMART', '2023-06-16', '2023-06-23', 7, 120000, 30, 40, 2, 2010),
+('Paquete Ayuda no tengo mas ideas', 'Jet SMART', 'Jet SMART', '2023-06-16', '2023-06-23', 7, 120000, 71, 75, 2, 2010),
 ('Paquete Isla de Pascua', 'Express Airlines', 'LAN Chile', '2023-06-15', '2023-06-20', 5, 110000, 30, 40, 2, 2011),
 ('Paquete Los ultimos son los primeros', 'LAN Chile', 'Jet SMART', '2023-06-16', '2023-06-30', 14, 150000, 20, 30, 3, 2012);
 
@@ -326,7 +327,8 @@ INSERT INTO `resena_paquete` (`id`, `id_usuario`, `fecha`, `opinion`, `calidad`,
 (9, 8, '2023-05-19', '', 5, 4, 3, 5, 2012, 4.25),
 (10, 10, '2023-05-14', '', 4, 4, 5, 5, 2007, 4.5),
 (30, 12, '2023-06-01', '', 4, 4, 4, 4, 2000, 4),
-(31, 25, '2023-06-07', 'Si me gustó muchisimo', 4, 4, 4, 4, 2004, 4);
+(31, 25, '2023-06-07', 'Si me gustó muchisimo', 4, 4, 4, 4, 2004, 4),
+(33, 28, '2023-06-08', 'ssssss', 0, 0, 0, 0, 2001, 0);
 
 -- --------------------------------------------------------
 
@@ -351,7 +353,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `fecha_nacimiento`, `contrasen
 (13, 'aquiles bailo', 'aquiles.bailo@gmail.com', '2003-05-13', 'juanperezgomes'),
 (14, 'Armando', 'armando@gmail.com', '2001-08-29', '123'),
 (15, 'Ando', 'Ando@gmail.com', '2003-06-04', '123'),
-(25, 'nicolas', 'nicolas.rodriguezbe@ums.cl', '2001-08-29', '123');
+(25, 'nicolas', 'nicolas.rodriguezbe@ums.cl', '2001-08-29', '123'),
+(28, 'nicolas A', 'juant@gmail.com', '2000-11-02', '123');
 
 -- --------------------------------------------------------
 
@@ -457,13 +460,13 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `resena_hotel`
@@ -475,13 +478,13 @@ ALTER TABLE `resena_hotel`
 -- AUTO_INCREMENT de la tabla `resena_paquete`
 --
 ALTER TABLE `resena_paquete`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `wishlist`

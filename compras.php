@@ -14,7 +14,7 @@
     $query = mysqli_query($conexion, "SELECT * FROM compras WHERE id_usuario = '$id_usuario'");
 
 
-    if($query){
+    if(mysqli_num_rows($query)>0){
         while($row = mysqli_fetch_assoc($query)){
             $id_compra = $row['id_compra'];
             $id_producto = $row['id_producto'];
@@ -58,6 +58,14 @@
                 <?php echo '<br>';
             }
         }
+    }else{
+        echo '
+            <script>
+                alert("No has comprado ningun producto compra alguno antes de volver aquí.");
+                window.location = "principal.php";
+            </script>
+        ';
     }
+
 ?>
 </div>
