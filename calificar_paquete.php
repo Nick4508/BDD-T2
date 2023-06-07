@@ -41,7 +41,7 @@
                     ';
                     break;
             } else {
-                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_paquete (id_usuario, fecha, calidad, transporte, servicio, calidad_precio, id_paquete, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $query3 = mysqli_prepare($conexion, "INSERT INTO resena_paquete (id_usuario, fecha, calidad, transporte, servicio, calidad_precio, id_paquete, promedio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 $promedio = 0;
                 mysqli_stmt_bind_param($query3, "isiiiiii", $id_usuario, $fechaHoy, $txtCaliCali, $txtCaliTrans, $txtCaliServ, $txtCaliPrecio, $id_producto, $promedio);
                 mysqli_stmt_execute($query3);
