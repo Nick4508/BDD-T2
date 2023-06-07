@@ -42,6 +42,7 @@
             <div class="col-sm">    
             <div class="card">
                 <div class="card-body">
+                <img src="imagenes/<?php echo $id?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <h5 class="card-title "><?php echo $nombre  ?></h5>
                 <p class="card-text"><?php echo 'Cantidad : '.$cantidad.''?> </p>
@@ -91,7 +92,8 @@
             <div class="col-sm">    
             <div class="card">
                 <div class="card-body">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
+
                 <h5 class="card-title"><?php echo $nombre  ?></h5>
                 <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
                 <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del hotel</a>
@@ -113,6 +115,7 @@
             <div class="col-sm">    
             <div class="card">
                 <div class="card-body">
+                <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <h5 class="card-title"><?php echo $nombre  ?></h5>
                 <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
@@ -175,7 +178,8 @@
             <div class="col-sm">    
             <div class="card">
                 <div class="card-body">
-                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
+
                 <h5 class="card-title"><?php echo $nombre  ?></h5>
                 <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
                 <a href="hotelesYpaquetes.php?id=<?php echo $id_hotel; ?>" class="btn btn-primary">Ir a la página del Paquete</a>
@@ -197,6 +201,7 @@
             <div class="col-sm">    
             <div class="card">
                 <div class="card-body">
+                <img src="imagenes/<?php echo $id_hotel?>.jpg" class="img-fluid rounded-start" alt="...">
                 <!-- <img src="..." class="card-img-top" alt="..."> -->
                 <h5 class="card-title"><?php echo $nombre  ?></h5>
                 <p class="card-text"><?php echo 'Promedio : '.$promedio.''?> </p>
